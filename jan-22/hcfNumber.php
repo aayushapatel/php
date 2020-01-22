@@ -1,32 +1,15 @@
 <?php
-echo "Enter two number for findin HCF";
+echo "Enter two number for find in HCF";
 include 'designTwoInput.php';
 function findNumber($numberOne, $numberTwo) {
-    $numberOneFactor = $numberTwoFactor  = array();
-    $hcfAnswer = 1;
-    if($numberOne > $numberTwo):
-        $len = $numberOne;  
-    else :
-        $len = $numberTwo;
-    endif;
-
-    for ($i = 1; $i <= $len; $i++) { 
-        if($numberOne % $i == 0) {
-            array_push($numberOneFactor, $i);
-        }
-        if($numberTwo % $i == 0) {
-            array_push($numberTwoFactor, $i);
-        }
+    $tempNumber1 = $numberOne;
+    $tempNumber2 = $numberTwo;
+    while ($tempNumber2 != 0) {
+        $temp = $tempNumber2;
+        $tempNumber2 = $tempNumber1 % $tempNumber2;
+        $tempNumber1 = $temp;
     }
-    for ($i = 0; $i < count($numberOneFactor); $i++) { 
-        for ($j=0; $j < count($numberTwoFactor); $j++) { 
-            if($numberOneFactor[$i] == $numberTwoFactor[$j]) {
-                $hcfAnswer *= $numberTwoFactor[$j];
-            }
-        }
-    }
-    echo "HCF of " . $numberOne . " & " . $numberTwo . " : " . $hcfAnswer;
-    
+    echo "HCF of " . $numberOne . " & " . $numberTwo . " = ".$tempNumber1;
     
 }
 ?>
