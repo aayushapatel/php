@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            /* td:empty{
+                visibility: hidden;
+            } */
+            table {
+                margin-top: 50px;
+            }
+            #img {
+                float: right;
+            }
+            div {
+                float: left;
+                height: 300px;
+                width: 300px;
+                margin-left: 70px;
+                margin-top: 50px;
+            }
+            table {
+                height: 100%;
+                width: 100%;
+            }
+            td{
+                text-align: center;
+            }
+            th{
+                width: 42px;
+            }
+            
+
+            }
+        </style>
+        <title>
+            Calendar
+        </title>
+    </head>
+    <body>
+        <form action="" method="post" enctype="multipart/form-data">
+        <label for="monthStart">Start Month : </label>
+        <input type="month" name="monthStart" id="monthEnd"><br>
+        <label for="monthEnd">End Month : </label>
+        <input type="month" name="monthEnd" id="monthEnd"><br>
+        <input type="file" name="calendar" id="calendar"><br>
+        <input type="submit" value="GET ..." name="getCalendar">
+        
+        </form>
+    </body>
+</html>
