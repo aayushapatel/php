@@ -1,5 +1,6 @@
 <?php
 require 'calendar.html';
+$allTable = "";
 if(isset($_POST['getCalendar'])) {
     session_start();
     
@@ -29,10 +30,12 @@ if(isset($_POST['getCalendar'])) {
         getCalendar($monthStart);
         $monthStart = date('Y-m',strtotime($monthStart . '+1 month'));
     }
+    sendMail();
     
 }
 
 function getCalendar($month) {
+    global $allTable;
     $dayOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
     $table = "<div><table border=1><caption>" . date('F, Y',strtotime($month)) . "</caption><tr>";
     for ($i = 0; $i < count($dayOfWeek); $i++) { 
@@ -61,6 +64,8 @@ function getCalendar($month) {
     }
         $table .= "</tr></table></div>";
         echo $table;
+        
+        $allTable .= $table;
 
     }
      function uploadImg($fileName) {
@@ -84,6 +89,37 @@ function getCalendar($month) {
                 die;
             }
      }
+function sendMail() {
+    $mailto = "imaayushapatel@gmail.com";
+    $mailSub = "Calendar";
+    global $allTable;
+    //echo $allTable;
+    $mailMsg = $allTable;
 
+    require 'C:\xampp\htdocs\xampp\PHPMailer-master\PHPMailerAutoload.php';
+    $mail = new PHPMailer();
+    $mail ->isSMTP();
+    $mail ->SMTPDebug = 0;
+    $mail ->SMTPAuth = true;
+    $mail ->SMTPSecure = 'ssl';
+    $mail ->Host = "smtp.gmail.com";
+    $mail ->Port = 465; //465 or 587
+    $mail ->IsHTML(true);
+    $mail ->Username = "patelaayusha@gmail.com";
+    $mail ->Password = "AayushaPatel4548";
+    $mail ->SetFrom('patelaayusha@gmail.com');
+    $mail ->Subject = $mailSub;
+    $mail ->Body = $mailMsg;
+    $mail ->AddAddress($mailto);
+   
+      if(!$mail->Send())
+      {
+            echo "<script> alert('Mail not sent'); </script>";
+      }
+      else {
+          echo "<script> alert('Mail sent'); </script>";
+      }
 
+     
+}
 ?>
