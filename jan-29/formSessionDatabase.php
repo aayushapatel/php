@@ -130,11 +130,12 @@ require 'databaseCon.php';
             echo "b";
             $account = accountData($_POST['account']);
             $address = addressData($_POST['address']);
-            $customerId = insertData('customers', $account);
-            $address_id = insertData('customer_address',$customerId.", ".$address);
+            
+            $customerId = updatetData('customers', $account,'customer_id  = '.$_GET['id']);
+            $address_id = updateData('customer_address',$address, 'customer_id  = '.$_GET['id']);
             foreach ($_POST['other'] as $key => $value) {
                 $other = otherData($key, $value);
-                $id = insertData('customer_additional_info',$customerId.", ".$other);
+                $id = updateData('customer_additional_info',$other, "`customer_id`  = ".$_GET['id']." AND `field_key` = '".$key."'");
             }
             $profileImage = $_FILES['other']['name']['profileImage'];
             $certificate = $_FILES['other']['name']['certificate'];
@@ -144,6 +145,13 @@ require 'databaseCon.php';
             
         }
     }
+function updateConverter($category) {
+   
+    foreach ($category as $key => $value) {
+          array_push($key = "'".$value."'");
+    }
+    return $categoryArray;
+}
 
     function accountData($account) {
         $fieldData = array();
@@ -152,7 +160,7 @@ require 'databaseCon.php';
             switch ($key) {
                 default:
                     $field = "'".$field."'";
-                     array_push($fieldData, $field);
+                     array_push($fieldData, $key ."= '".$value."'");
                     break;
             }
         }
@@ -162,99 +170,38 @@ require 'databaseCon.php';
         $fieldData = array();
         foreach($address as $key => $field) {
             switch ($key) {
-
                 default:
                     $field = "'".$field."'";
-                     array_push($fieldData, $field);
-                    break;
-            }
-        }
-        return implode(", ", $fieldData);
-    } 
+                    array_push($fieldData, $key ."= '".$value."'");
+             }
+         }
+         return implode(", ", $fieldData);
+    }
     function otherData($key, $field)    {
         switch ($key) {
             case 'describe':
-                $field = "'".$field."'";
-                return "'Description', ".$field;
-                break;
+                
             case 'years' :
-                $field = "'".$field."'";
-                return "'Experience Years', ".$field;
-                break;
+                
             case 'clients':
                 $field = "'".$field."'";
-                return "'Clients', ".$field;
+                return $field;
                 break;
             case 'inTouch':
-                $inTouchArray = array();
-                foreach ($field as $subValue) {
-                   array_push($inTouchArray,$subValue);
-                }
-                return "'Get In touch', '".implode(", ", $inTouchArray)."'";
-                break;
+            
             case 'hobbies':
                 $hobbiesArray = array();
                 foreach ($field as $subValue) {
                    array_push($hobbiesArray,$subValue);
                 }
-                return "'Hobbies', '".implode(", ", $hobbiesArray)."'";        
+                return "'".implode(", ", $hobbiesArray)."'";        
                 break;
             default:
                 break;
         }
     }
 
-    displayData();
-    function displayData() {
-        $table = "<table border=1>";
-        $accountArray = ['Id','Prefix','First Name','Last Name','Date of Birth','Phone Number','Email','Password'];
-        $addressArray = ['Address Line 1','Address Line 2','Company','City','State','Country','Postal Code'];
-        $otherArray = ['Description','Experience Year','Clients','Get In touch','Hobbies','Image Profile','Certificate'];
-        foreach (array_merge($accountArray,$addressArray,$otherArray) as $key) {
-            $table .= "<th>".$key."</td>";
-        }
-        $result = selectData('customers','*', 1);
-        if(mysqli_num_rows($result) > 0) {
-            while($row = mysqli_fetch_assoc($result)) {
-                $table .= "<tr>";
-                $id = $row['customer_id'];
-                foreach ($row as $value) {
-                    $table .= "<td>".$value."</td>";
-                }
-                $addressResult = selectData('customer_address','*','`customer_id` = '.$id);
-                if(mysqli_num_rows($addressResult) > 0) {
-                    while($addressrow = mysqli_fetch_assoc($addressResult)) {
-                       
-                        foreach ($addressrow as $key => $addressvalue) {
-                            if(!($key == 'id') && !($key == 'customer_id'))
-                                $table .= "<td>".$addressvalue."</td>";
-                        }
-                    }
-                }
-                $otherResult = selectData('customer_additional_info','*','`customer_id` = '.$id);
-                if(mysqli_num_rows($otherResult) > 0) {
-                    $i = 0;
-                    
-                    while($otherrow = mysqli_fetch_assoc($otherResult)) {
-                        label :
-                        if($otherArray[$i] == $otherrow['field_key']) {
-                            $table .= "<td>".$otherrow['value']."</td>";
-                        }
-                        else {
-                            $table .= "<td>"."</td>";
-                            $i++;
-                            goto label;
-                        }
-                        $i++;
-                        }
-                    }
-                
-                $table .= "</tr>";
-            }
-        }
-        $table .= "</table>";
-        echo $table;
-    }
+    
    
     
 ?>
