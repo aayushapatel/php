@@ -11,7 +11,7 @@ function getRowValue($result,$other='') {
             
                foreach ($row as $key => $value) {
                        $categoryArray[$key] = $value;
-                       echo $key,$value;
+                      
            
            }
          }
