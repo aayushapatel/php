@@ -11,7 +11,7 @@
     function selectData($tableName, $fieldName, $where = "1") {
         $query = "SELECT $fieldName FROM `$tableName` WHERE $where";
         global $conn;
-       // echo $query;
+      
         $result = mysqli_query($conn, $query) or die;
         return $result;
     }
@@ -24,7 +24,7 @@
     }
     function updateData($tableName, $fieldName, $where) {
         $query = "UPDATE `$tableName` SET $fieldName WHERE $where";
-        echo $query;
+        
         global $conn;
         $result = mysqli_query($conn, $query) or die;
         return $result;
