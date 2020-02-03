@@ -14,9 +14,9 @@
                 header('Location:addCategory.php');
             }
         ?>
-            <table>
+            <table border=1>
                 <?php
-                    $head = ['Category Id', 'Category Image', 'Category Name','Created Date', 'Actions'];
+                    $head = ['Category Id', 'Category Image','Title', 'Category Name','Created Date', 'Actions'];
                 ?>
                 <tr>
                     <?php
@@ -26,16 +26,18 @@
                     <?php endforeach;?>
                 </tr>
                 <?php
-                     $result = selectData('category','category_id,image,categoryName,createdAt');
+                     $result = selectData('category','category_id,title,image,categoryName,createdAt');
                      while($row = mysqli_fetch_assoc($result)) :
                         ?>
                     <tr>
                         <td><?php echo $row['category_id'];?>   </td>
                         <td><img src="<?php echo $row['image'];?>" height="50px" width="50px">   </td>
+                        <td><?php echo $row['title'];?>   </td>
                         <td><?php echo $row['categoryName'];?>   </td>
                         <td><?php echo $row['createdAt'];?>   </td>
-                        <td><a href="http://localhost/xampp/php/feb-3(test)/categoryEdit.php?id=".<?php echo $row['category_id']; ?>>Edit</td>
-                        <td><a href="http://localhost/xampp/php/feb-3(test)/categoryDelete.php?id=".<?php echo $row['category_id']; ?>">Delete</td>
+                        <?php echo '<td><a href="http://localhost/xampp/php/exam/categoryEdit.php?id='.$row['category_id'].'">Edit </a>';
+                      echo '<a href="http://localhost/xampp/php/exam/categoryDelete.php?id='.$row['category_id'].'">Delete</a></td>';
+                        ?>
                      </tr>
                      <?php endwhile; ?>
             </table>

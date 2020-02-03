@@ -1,4 +1,31 @@
 <?php
+$result = selectData('category','*', "category_id=".$_GET['id']);
+$data = getRowValue($result);
+
+
+
+function getRowValue($result,$other='') {
+    $value = null;
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            
+               foreach ($row as $key => $value) {
+                       $categoryArray[$key] = $value;
+                       echo $key,$value;
+           
+           }
+         }
+     }
+    
+   return $categoryArray;
+}
+function getData( $fieldName,$returnType = "") {
+        global $data;
+        $valueArray = $data;
+    $value = (isset($valueArray[$fieldName]))? $valueArray[$fieldName] : $returnType;
+    return (isset($value))? $value: $returnType;
+}
+
     function validate($fieldName) {
         if($_POST) {
             switch ($fieldName) {
@@ -24,10 +51,12 @@
 
             @move_uploaded_file($_FILES['image']['tmp_name'],"uploads/".$_FILES['image']['name']);
             $category = converter();
-            
-            $categoryKeys = array_keys($category);
-            $categoryValues = array_values($category);
-            $id = insertData('category','category_id,'.implode(",",$categoryKeys),implode(",",$categoryValues));
+    
+            $updateArray = [];
+            foreach ($category as $key => $value) {
+                array_push($updateArray, $key."=".$value);
+            }
+            $id = updateData('category',implode(", ",$updateArray), 'category_id='.$_GET['id']);
             if(($id) > 0) {
                 header('Location:manageCategory.php');
             }
@@ -64,4 +93,5 @@
         
         return $userData;
     }
+?>
 ?>

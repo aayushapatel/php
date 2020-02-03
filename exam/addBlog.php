@@ -56,6 +56,13 @@
                         </td>
                     </tr>
                 </div>
+                <div>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Add" name="addBlog">
+                        </td>
+                    </tr>
+                </div>
             </table>
         </form>
     </body>
