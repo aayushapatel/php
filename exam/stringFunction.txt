@@ -1,0 +1,2 @@
+string_replace is function that replace the string passed in second argument with the string passed in the third argument
+string_replace($mainString, $replacefrom, replaceWith)
