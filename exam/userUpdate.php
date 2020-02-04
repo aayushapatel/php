@@ -1,15 +1,39 @@
 <?php 
 require 'databaseCon.php';
-session_start();
+$result = selectData('user','*', "user_id=".$_SESSION['userId']);
+$data = getRowValue($result);
+
+
+
+function getRowValue($result) {
+    $value = null;
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            
+               foreach ($row as $key => $value) {
+                       $categoryArray[$key] = $value;
+           }
+         }
+     }
+    
+   return $categoryArray;
+}
+function getData( $fieldName,$returnType = "") {
+        global $data;
+        $valueArray = $data;
+    $value = (isset($valueArray[$fieldName]))? $valueArray[$fieldName] : $returnType;
+    return (isset($value))? $value: $returnType;
+}
     function validate($fieldName) {
         if($_POST) {
             switch ($fieldName) {
-                case 'firstName':
-                case 'lastName':
                 case 'information':
                 case 'password':
+                    
                     if(empty($_POST[$fieldName])) {
+
                         return true;
+
                     }    
                 break;
                 case 'mobileNumber' :
@@ -17,10 +41,6 @@ session_start();
                         return true;
                     }
                     break;
-                case 'email':
-                    if (!filter_var($_POST[$fieldName], FILTER_VALIDATE_EMAIL)) {    
-                        return true;
-                    }
                 case 'confirmPassword':
                     if($_POST['password'] != $_POST['confirmPassword']) {
                         return true;
@@ -30,7 +50,7 @@ session_start();
                         return true;
                     }
                 default:
-                    # code...
+                    
                     break;
             }
         }
@@ -38,19 +58,11 @@ session_start();
     function setData($flag) {
         if($flag == 0) {
             $userData = converter();
-            $userKeys = array_keys($userData);
-            $userValue = array_values($userData);
-            $userId = selectData('user','user_id',"email = '".$_POST['email']."'");
-            if(mysqli_num_rows($userId) == 0) {
-                $id = insertData('user','user_id,'.implode(", ",$userKeys), implode(",", $userValue));
-                if($id > 1) {
-                    $_SESSION['userId'] = $id;
-                    header('Location:blogPost.php');
-                }
+            $updateUser = [];
+            foreach ($userData as $key => $value) {
+                array_push($updateUser,$key."=".$value);
             }
-            else {
-                echo "User already Registered";
-            }
+            $id = updateData('user',implode(", ",$updateUser    ), 'user_id='.$_SESSION['userId']);
         }
     }
     function converter() {
@@ -58,15 +70,7 @@ session_start();
         foreach ($_POST as $key => $value) {
 
             switch ($key) {
-                case 'prefix':
-                    $userData['prefix'] = "'".$value."'";
-                break;
-                case 'firstName':
-                    $userData['firstName'] = "'".$value."'";
-                break;
-                case 'lastName':
-                    $userData['lastName'] = "'".$value."'";
-                break;
+               
                 case 'information':
                     $userData['information'] = "'".$value."'";
                 break;
@@ -76,9 +80,7 @@ session_start();
                 case 'mobileNumber' :
                     $userData['mobileNumber'] = "'".$value."'";
                 break;
-                case 'email':
-                    $userData['email'] = "'".$value."'";
-                break;
+               
             }
         }
         return $userData;

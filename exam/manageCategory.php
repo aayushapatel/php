@@ -6,7 +6,7 @@
     <body>
         <?php require 'header.php';
             require 'databaseCon.php'; ?>
-        <h3>Blog Post</h3>
+        <h3>Category</h3>
         <form method="post">
             <input type="submit" value="Add Category" name="addBlog">
             <?php

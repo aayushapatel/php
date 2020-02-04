@@ -2,6 +2,14 @@
 <html>
     <head>
         <title>Header</title>
+        <style>
+            div.header{
+                
+                margin-left: 900px;
+                margin-bottom: 50px;
+                
+            }
+        </style>
     </head>
     <body>
         <form action="" method="post">
@@ -14,11 +22,12 @@
                     }
                 }
             ?>
-            <div>
+            <div class="header">
                 <input type="submit" value="Manage Category" name="manage">
                 <input type="submit" value="My Profile" name="profile">
                 <input type="submit" value="Logout" name="logout">
             </div>
+            <h4><a href="http://localhost/xampp/php/exam/blogPost.php">BLOG</a></h4>
             <?php
                 checkSession();
                 if(isset($_POST['manage'])) {

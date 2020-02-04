@@ -55,6 +55,7 @@ function getData( $fieldName,$returnType = "") {
             $updateArray = [];
             foreach ($category as $key => $value) {
                 array_push($updateArray, $key."=".$value);
+          
             }
             $id = updateData('category',implode(", ",$updateArray), 'category_id='.$_GET['id']);
             if(($id) > 0) {
@@ -87,10 +88,12 @@ function getData( $fieldName,$returnType = "") {
 
                 
             }
-            $userData['image'] = "'uploads/".$_FILES['image']['name']."'";
+           
 
         }
-        
+        if(!empty($_FILES['image']['name'])){
+            $userData['image'] = "'uploads/".$_FILES['image']['name']."'";
+        }
         return $userData;
     }
 ?>

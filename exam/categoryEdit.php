@@ -12,7 +12,7 @@
             
 
             ?>
-        <h3>Add New Blog Post</h3>
+        <h3>Update Category</h3>
         <form method="post" enctype="multipart/form-data">
             <table>
                 <div>
@@ -104,6 +104,7 @@
                 </div>
             </table>
             <?php
+            if(!empty($_POST))
                 setData($validFlag);
             ?>
         </form>

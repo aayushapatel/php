@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login Page</title>
+        <title>Blog Post</title>
     </head>
     <body>
-        <?php require 'userUpdate.php';
-        $validFlag = 0; ?>
-        <form method="post">
-        <table>
-                <div>
+      <?php require 'header.php';
+      require 'userUpdate.php'; 
+      $validFlag = 0; ?>
+      <form action="" method="post">
+      <table>
+      <div>
                     <tr>
                         <th>Prefix</th>
                         <td>
-                        <select name="prefix" id="prefix">
-                                <?php 
-                                   $selected = "selected='selected'";
-                                   $prefixValues = ['Mr', 'Miss' ,'Mrs', 'Dr'];
-                                    foreach($prefixValues as $prefix):
-                                ?>
-                                <option value=<?php echo $prefix?>>
-                                    <?php echo $prefix?></option>
-                                <?php endforeach; ?>
+                        <input type="text" name="prefix" id="" value="<?php echo getData('prefix'); ?>" readonly>
                             </select>
                         </td>
                     </tr>
@@ -28,40 +21,31 @@
                 <div>
                     <tr>
                         <th>First Name</th>
-                        <td><input type="text" name="firstName" id="">
-                            <?php if(validate('firstName')): ?>
-                                <span>Invalid Name </span>
-                            <?php
-                            $validFlag++; endif;?>
+                        <td><input type="text" name="firstName" id=""  value="<?php echo getData('firstName'); ?>" readonly>
+
                         </td>
                     </tr>
                 </div>
                 <div>
                     <tr>
                         <th>Last Name</th>
-                        <td><input type="text" name="lastName" id="">
-                        <?php if(validate('lastName')): ?>
-                                <span>Invalid Name </span>
-                            <?php
-                            $validFlag++; endif;?>
+                        <td><input type="text" name="lastName" id=""  value="<?php echo getData('lastName'); ?>" readonly>
+                       
                         </td>
                     </tr>
                 </div>
                 <div>
                     <tr>
                         <th>Email</th>
-                        <td><input type="email" name="email" id="">
-                        <?php if(validate('email')): ?>
-                                <span>Invalid Email </span>
-                            <?php
-                            $validFlag++; endif;?>
+                        <td><input type="email" name="email" id="" readonly  value="<?php echo getData('email'); ?>">
+                        
                         </td>
                     </tr>
                 </div>
                 <div>
                     <tr>
                         <th>Mobile Number</th>
-                        <td><input type="text" name="mobileNumber" id="">
+                        <td><input type="text" name="mobileNumber" id=""  value="<?php echo getData('mobileNumber'); ?>">
                         <?php if(validate('mobileNumber')): ?>
                                 <span>Invalid mobile Number </span>
                             <?php
@@ -94,7 +78,7 @@
                 <div>
                     <tr>
                         <th>Information</th>
-                        <td><textarea name="information" cols="20" rows="3"></textarea>
+                        <td><textarea name="information" cols="20" rows="3"> <?php echo getData('information'); ?></textarea>
                         <?php if(validate('information')): ?>
                                 <span>Invalid Information </span>
                             <?php
@@ -115,7 +99,7 @@
                 </div>
                 <div>
                     <tr>
-                        <td><input type="submit" value="Submit"></td>
+                        <td><input type="submit" value="Update"></td>
                     </tr>
                 </div>
             </table>
@@ -126,4 +110,5 @@
             }
         ?>
     </body>
+
 </html>

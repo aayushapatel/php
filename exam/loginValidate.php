@@ -10,7 +10,7 @@
             $result = selectData('user','`user_id`,`password`',"`email` ='".$_POST['email']."'" );
             if(mysqli_num_rows($result) == 1) {
                 $row = mysqli_fetch_assoc($result);
-                if($row['password'] == ($_POST['password'])) {
+                if($row['password'] == md5($_POST['password'])) {
                     $_SESSION['userId'] = $row['user_id'];
                     header('Location:blogPost.php');
                 }
