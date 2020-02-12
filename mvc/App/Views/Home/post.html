@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Data {% endblock %}
+{% block body %}
+<table>
+    <tr>
+        <th>Roll No</th>
+        <th>Name</th>
+        <th colspan="2">Action</th>
+    </tr>
+    {% for post in data %}
+    
+    <tr>
+        <td>{{post.rollNo}}</td>
+        <td>{{post.studentName}}</td>
+        <td><a href="{{URL}}home/{{post.student_id}}/edit">Edit</a></td>
+        <td><a href="{{URL}}home/{{post.student_id}}/delete">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

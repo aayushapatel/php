@@ -1,17 +1,13 @@
 <?php
     namespace App\Controllers;
     use \Core\BaseView;
+    use \App\Models\Post;
     class Posts extends \Core\BaseController {
-        public function index() {
-            BaseView::renderTemplate('Home/index.html',['name'=>'aayusha']);
+        public function indexAction() {
+            $data = Post::getAll('student','*');
+            BaseView::renderTemplate('Home/post.html',['data'=>$data]);
 
         }
-        public function addNew() {
-            BaseView::renderTemplate('Home/index.html',['name'=>'aayusha']);
-        }
-        public function edit() {
-            BaseView::renderTemplate('Home/index.html',['name'=>'aayusha']);
-
-        }
+        
     }
 ?>

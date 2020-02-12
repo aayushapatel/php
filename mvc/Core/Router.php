@@ -27,7 +27,7 @@
         public function match($url) {
             $url = $this->removeQueryString($url);
             foreach ($this->routes as $route => $params) {
-             //echo $route,$params;
+             
                 if(preg_match($route, $url, $matches)) {
                     //$params = [];
                     foreach ($matches as $key => $match) {
