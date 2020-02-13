@@ -16,7 +16,7 @@
             }
             else {
                 
-                echo "Method $method not found";
+                throw new\Exception("Method $method not found");
                 
             }
 

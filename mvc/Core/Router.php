@@ -63,15 +63,15 @@
                         $controller_object->$action();
                     }
                     else {
-                        echo "Method $action not found";
+                        throw new \Exception("Method $action not found");
                     }
                 }
                 else {
-                    echo "Controller class $controller not found";
+                    throw new \Exception( "Controller class $controller not found");
                 }
             }
             else {
-                echo "no route matched";
+                throw new \Exception("no route matched", 404);
             }
 
         }
@@ -105,5 +105,4 @@
      }
     
 
-    
 ?>
