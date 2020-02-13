@@ -1,5 +1,6 @@
 <?php
     namespace Core;
+    use PDO;
     abstract class BaseModel {
        protected static function getDatabase() {
            static $db = null;
@@ -9,10 +10,10 @@
                $username = 'root';
                $password = "";
                 try {
-                    $db = mysqli_connect($host, $username, $password, $dbname);
-                    //$db = new PDO("mysql:host=$host;dbname=$dbname", )
+                    // $db = mysqli_connect($host, $username, $password, $dbname);
+                    $db = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
                 }
-                catch(Exception $e) {
+                catch(PDOException $e) {
                     echo $e->getMessage();
                 }
            }

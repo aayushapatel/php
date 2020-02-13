@@ -2,6 +2,7 @@
     namespace App\Controllers;
     use \Core\BaseView;
     use \App\Models\Post;
+    use PDO;
     use \App\Controllers\Posts as edit;
     class Home extends \Core\BaseController {
         public function indexAction() {
@@ -46,8 +47,7 @@
             else {
                 
                 $data = Post::getAll('student','*','student_id='.$this->route_params['id']);
-                $data = $data->fetch_assoc();
-                BaseView::renderTemplate('Home/index.html',['edit'=>$data]);
+                BaseView::renderTemplate('Home/index.html',['edit'=>$data[0]]);
             }
         }
         protected function validate($fields) {
@@ -60,7 +60,7 @@
                         }
                     break;
 
-                    case 'roll':
+                    case 'roll': 
                         if(empty($value) || !is_numeric($value)) {
                             $error['roll'] = 'Invalid Roll Number';
                         }
