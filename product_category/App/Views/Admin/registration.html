@@ -1,0 +1,70 @@
+{% extends 'Admin/baseLogin.html' %}
+{% block title %}  Login {% endblock %}
+{% block body %}
+<!-- Material form login -->
+<div class="signup-form">
+    <form method="post">
+		<h2>Sign Up</h2>
+        <div class="form-group">
+            <select name="prefixSelect">
+                {% for prefixValue in prefix %}
+                <option value="{{prefixValue.prefix_name}}" class="form-control">{{prefixValue.prefix_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+		<div class="form-group">
+            <input type="text" class="form-control" name="firstname" placeholder="First Name">
+        </div>
+        {%if error.firstname %}
+            <span>{{error.firstname}}</span>
+        {% endif %}
+		<div class="form-group">
+        	<input type="text" class="form-control" name="lastname" placeholder="Last Name">
+        </div>
+        {%if error.lastname %}
+            <span>{{error.lastname}}</span>
+        {% endif %}
+        <div class="form-group">
+        	<input type="email" class="form-control" name="email" placeholder="Email Address">
+        </div>
+        {%if error.email %}
+            <span>{{error.email}}</span>
+        {% endif %}
+        <div class="form-group">
+        	<input type="text" class="form-control" name="mobilenumber" placeholder="Mobile Number">
+        </div>
+        {%if error.mobilenumber %}
+            <span>{{error.mobilenumber}}</span>
+        {% endif %}
+		<div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        {%if error.password %}
+            <span>{{error.password}}</span>
+        {% endif %}
+		<div class="form-group">
+            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
+        </div> 
+        {%if error.confirm_password %}
+            <span>{{error.confirm_password}}</span>
+        {% endif %}
+        <div class="form-group">
+            <textarea name="information" class="form-control" cols="10" placeholder="Information"></textarea>
+        </div>
+        {%if error.information %}
+            <span>{{error.information}}</span>
+        {% endif %}      
+        <div class="form-group">
+			<label class="checkbox-inline"><input type="checkbox" name="terms"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+        </div>
+        {%if error.terms %}
+            <span>{{error.terms}}</span>
+        {% endif %}
+        
+		<div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg" name="signUp">Sign Up</button>
+        </div>
+    </form>
+	
+</div>
+  {% endblock %}

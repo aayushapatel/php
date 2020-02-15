@@ -1,0 +1,83 @@
+[13-Feb-2020 09:03:27 Europe/Berlin] Uncaught exception : 'Exception' 
+Message : 'no route matched'
+Stack trace : '#0 C:\xampp\htdocs\mvc\Core\Router.php(12): core\Router->dispatch('home/index/8')
+#1 C:\xampp\htdocs\mvc\public\index.php(14): core\Router->__construct()
+#2 {main}'
+Thrown in 'C:\xampp\htdocs\mvc\Core\Router.php' on line 74
+
+[13-Feb-2020 09:03:39 Europe/Berlin] Uncaught exception : 'Exception' 
+Message : 'no route matched'
+Stack trace : '#0 C:\xampp\htdocs\mvc\Core\Router.php(12): core\Router->dispatch('home/index/8')
+#1 C:\xampp\htdocs\mvc\public\index.php(14): core\Router->__construct()
+#2 {main}'
+Thrown in 'C:\xampp\htdocs\mvc\Core\Router.php' on line 74
+
+[13-Feb-2020 09:08:05 Europe/Berlin] Uncaught exception : 'Exception' 
+Message : 'no route matched'
+Stack trace : '#0 C:\xampp\htdocs\mvc\Core\Router.php(12): core\Router->dispatch('home/index/8')
+#1 C:\xampp\htdocs\mvc\public\index.php(14): core\Router->__construct()
+#2 {main}'
+Thrown in 'C:\xampp\htdocs\mvc\Core\Router.php' on line 74
+
+[13-Feb-2020 09:09:00 Europe/Berlin] Uncaught exception : 'ErrorException' 
+Message : 'Undefined offset: 0'
+Stack trace : '#0 C:\xampp\htdocs\mvc\App\Controllers\Home.php(50): Core\Error::errorHandler(8, 'Undefined offse...', 'C:\\xampp\\htdocs...', 50, Array)
+#1 [internal function]: App\Controllers\Home->editAction()
+#2 C:\xampp\htdocs\mvc\Core\BaseController.php(13): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\mvc\Core\Router.php(63): Core\BaseController->__call('edit', Array)
+#4 C:\xampp\htdocs\mvc\Core\Router.php(12): core\Router->dispatch('home/1/edit')
+#5 C:\xampp\htdocs\mvc\public\index.php(14): core\Router->__construct()
+#6 {main}'
+Thrown in 'C:\xampp\htdocs\mvc\App\Controllers\Home.php' on line 50
+
+[13-Feb-2020 09:17:49 Europe/Berlin] Uncaught exception : 'ErrorException' 
+Message : 'Undefined offset: 0'
+Stack trace : '#0 C:\xampp\htdocs\mvc\App\Controllers\Home.php(50): Core\Error::errorHandler(8, 'Undefined offse...', 'C:\\xampp\\htdocs...', 50, Array)
+#1 [internal function]: App\Controllers\Home->editAction()
+#2 C:\xampp\htdocs\mvc\Core\BaseController.php(13): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\mvc\Core\Router.php(63): Core\BaseController->__call('edit', Array)
+#4 C:\xampp\htdocs\mvc\Core\Router.php(12): core\Router->dispatch('home/1/edit')
+#5 C:\xampp\htdocs\mvc\public\index.php(14): core\Router->__construct()
+#6 {main}'
+Thrown in 'C:\xampp\htdocs\mvc\App\Controllers\Home.php' on line 50
+
+[13-Feb-2020 09:17:49 Europe/Berlin] Uncaught exception : 'ErrorException' 
+Message : 'Undefined offset: 0'
+Stack trace : '#0 C:\xampp\htdocs\mvc\App\Controllers\Home.php(50): Core\Error::errorHandler(8, 'Undefined offse...', 'C:\\xampp\\htdocs...', 50, Array)
+#1 [internal function]: App\Controllers\Home->editAction()
+#2 C:\xampp\htdocs\mvc\Core\BaseController.php(13): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\mvc\Core\Router.php(63): Core\BaseController->__call('edit', Array)
+#4 C:\xampp\htdocs\mvc\Core\Router.php(12): core\Router->dispatch('home/1/edit')
+#5 C:\xampp\htdocs\mvc\public\index.php(14): core\Router->__construct()
+#6 {main}'
+Thrown in 'C:\xampp\htdocs\mvc\App\Controllers\Home.php' on line 50
+
+[13-Feb-2020 09:17:49 Europe/Berlin] Uncaught exception : 'ErrorException' 
+Message : 'Undefined offset: 0'
+Stack trace : '#0 C:\xampp\htdocs\mvc\App\Controllers\Home.php(50): Core\Error::errorHandler(8, 'Undefined offse...', 'C:\\xampp\\htdocs...', 50, Array)
+#1 [internal function]: App\Controllers\Home->editAction()
+#2 C:\xampp\htdocs\mvc\Core\BaseController.php(13): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\mvc\Core\Router.php(63): Core\BaseController->__call('edit', Array)
+#4 C:\xampp\htdocs\mvc\Core\Router.php(12): core\Router->dispatch('home/1/edit')
+#5 C:\xampp\htdocs\mvc\public\index.php(14): core\Router->__construct()
+#6 {main}'
+Thrown in 'C:\xampp\htdocs\mvc\App\Controllers\Home.php' on line 50
+
+[13-Feb-2020 09:17:50 Europe/Berlin] Uncaught exception : 'ErrorException' 
+Message : 'Undefined offset: 0'
+Stack trace : '#0 C:\xampp\htdocs\mvc\App\Controllers\Home.php(50): Core\Error::errorHandler(8, 'Undefined offse...', 'C:\\xampp\\htdocs...', 50, Array)
+#1 [internal function]: App\Controllers\Home->editAction()
+#2 C:\xampp\htdocs\mvc\Core\BaseController.php(13): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\mvc\Core\Router.php(63): Core\BaseController->__call('edit', Array)
+#4 C:\xampp\htdocs\mvc\Core\Router.php(12): core\Router->dispatch('home/1/edit')
+#5 C:\xampp\htdocs\mvc\public\index.php(14): core\Router->__construct()
+#6 {main}'
+Thrown in 'C:\xampp\htdocs\mvc\App\Controllers\Home.php' on line 50
+
+[13-Feb-2020 09:18:02 Europe/Berlin] Uncaught exception : 'Exception' 
+Message : 'no route matched'
+Stack trace : '#0 C:\xampp\htdocs\mvc\Core\Router.php(12): core\Router->dispatch('posts/js,d')
+#1 C:\xampp\htdocs\mvc\public\index.php(14): core\Router->__construct()
+#2 {main}'
+Thrown in 'C:\xampp\htdocs\mvc\Core\Router.php' on line 74
+

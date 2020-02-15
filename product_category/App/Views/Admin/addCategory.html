@@ -1,0 +1,51 @@
+{% extends 'Admin/baseloggedIn.html' %}
+{% block title %}  Login {% endblock %}
+{% block body %}
+
+<div class="signup-form">
+    <h1>Category</h1>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="text" class="form-control" name="categoryName" value="{{editdata.category_name}}" placeholder="Category Name">
+        </div>
+        {%if error.categoryName %}
+            <span>{{error.categoryName}}</span>
+        {% endif %}
+        <div class="form-group">
+            <input type="text" class="form-control" name="url"  value="{{editdata.Url_key}}" placeholder="URL Key ">
+        </div>
+        {%if error.url %}
+            <span>{{error.url}}</span>
+        {% endif %}
+        <div class="form-group">Image
+            <input type="file" class="form-control" name="image"   title="Select a Image"> {{editdata.image}}
+        </div>
+        {%if error.image %}
+            <span>{{error.image}}</span>
+        {% endif %}
+        <div class="form-group">Status
+            <input type="radio" name="status" value="On" {% if editdata.status == 'On' %} checked {% endif %}>On
+            <input type="radio" name="status" value="Off" {% if editdata.status == 'Off' %} checked {% endif %}>Off
+        </div>
+        
+        <div class="form-group">
+        <textarea name="description" class="form-control" placeholder="Description" cols="30" rows="5">{{editdata.description}}</textarea>
+        </div>
+        {%if error.description %}
+            <span>{{error.description}}</span>
+        {% endif %}
+        <div class="form-group">
+            <select name="parentCategory" class="form-control">
+                <option>Parent</option>
+                {% for cat in parentCategory %} 
+                    <option value="{{cat.category_id}}" {% if cat.category_id == editdata.parent_category %} selected {% endif %}>{{cat.category_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg" name="addCategory">{{action}}</button>
+        </div>
+    
+    </form>
+</div>
+{% endblock %}

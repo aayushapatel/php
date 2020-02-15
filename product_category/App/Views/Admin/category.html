@@ -1,0 +1,37 @@
+{% extends 'Admin/baseloggedIn.html' %}
+{% block title %}  Login {% endblock %}
+{% block body %}
+<h1>Category</h1>
+<button><a href="{{URL}}Admin/Category/add">Add Category</a></button>
+
+<table>
+    <tr>
+      
+            {% for record,value in data[0] %}
+            <th>{{record}}</th>
+            {% endfor %}
+            <th colspan=2>Actions</th>
+    
+    </tr>
+    {% for grid in data %}
+    <tr>
+        {% for record in grid %}
+        <td>{{record}}</td>
+        {% endfor %}
+        <td><a href="{{URL}}Admin/Category/edit/{{grid.category_id}}">Edit </a></td>
+        <td><a href="http://">Delete </a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
