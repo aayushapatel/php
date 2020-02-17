@@ -5,6 +5,7 @@
         protected $params = [];
         public function __construct($route_params) {
             $this->params = $route_params;
+                
         }
         function __call($name, $arguments = []){
             $method = $name . "Action";

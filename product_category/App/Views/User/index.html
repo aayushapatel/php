@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}  Login {% endblock %}
+{% block div %}
+<ul class="nav nav-pills">
+    <li><a href="{{URL}}">Home</a></li> 
+    {% for categories in category %} 
+    <li class="dropdown">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{categories.category_name}} <b class="caret"></b></a>
+        {% if childCategory %}
+            <ul class="dropdown-menu">
+                {% for child in childCategory %}
+                <li><a href="{{URL}}User/View/viewProduct/{{child.category_name}}">{{child.category_name}}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    </li>
+    {% endfor %}
+    {% for pages in cms %}
+        <li><a href="{{URL}}User/View/viewCms/{{pages.Url_key}}">{{pages.page_title}}</a></li>
+    {% endfor %}
+    <li class="active"><a href="{{URL}}admin/login">Sign In</a></li>
+</ul>
+
+
+{% endblock %}

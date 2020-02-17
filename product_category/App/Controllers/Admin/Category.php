@@ -50,7 +50,7 @@ class Category extends \Core\BaseController {
         if(isset($_POST['addCategory'])) {
             $_POST['url'] = $this->generateUrl($_POST['url']);
             $_POST['image'] = $_FILES['image']['name'];
-            if($this->validate($_POST)) {
+            if($this->validate($_POST, true)) {
                
                 $categoryId = BaseQuery::selectData('category','category_id',"Url_key = '".$_POST['url']." and category_id!=".$this->params['id']."'");
                 if(empty($categoryId)) {
@@ -96,7 +96,7 @@ class Category extends \Core\BaseController {
            
         }
     }
-    protected function validate($fields) {
+    protected function validate($fields, $imageValidate=false) {
         $error = [];
         
         foreach ($fields as $key => $value) {
@@ -112,8 +112,14 @@ class Category extends \Core\BaseController {
                     }
                 break;
                 case 'image':
+                    if($imageValidate) {
+                        break;
+                    }
                     if(!in_array($_FILES['image']['type'],['image/jpg','image/jpeg','image/png'])) {
                         $error[$key] = 'Image in jpg format';
+                    }
+                    else {
+                        move_uploaded_file($_FILES['image']['tmp_name'],config::DOCUMENT_ROOT."uploads/".$_FILES['image']['name']);
                     }
                 break;
             }

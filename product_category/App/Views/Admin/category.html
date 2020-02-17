@@ -10,13 +10,19 @@
             {% for record,value in data[0] %}
             <th>{{record}}</th>
             {% endfor %}
-            <th colspan=2>Actions</th>
+            {% if data %}
+                <th colspan=2>Actions</th>
+            {% endif %}
     
     </tr>
     {% for grid in data %}
     <tr>
-        {% for record in grid %}
-        <td>{{record}}</td>
+        {% for key,record in grid %}
+            {% if key == 'image' %}
+                <td><img src="{{URL}}uploads/{{record}}" alt="Category" height="50px" width="50px" ></td>
+            {% else %}
+                <td>{{record}}</td>
+            {% endif %}
         {% endfor %}
         <td><a href="{{URL}}Admin/Category/edit/{{grid.category_id}}">Edit </a></td>
         <td><a href="{{URL}}Admin/Category/delete/{{grid.category_id}}">Delete </a></td>

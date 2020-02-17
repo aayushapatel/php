@@ -24,7 +24,7 @@
             <span>{{error.image}}</span>
         {% endif %}
         <div class="form-group">Status
-            <input type="radio" name="status" value="On" {% if editdata.status == 'On' %} checked {% endif %}>On
+            <input type="radio" name="status" value="On" checked {% if editdata.status == 'On' %} checked {% endif %}>On
             <input type="radio" name="status" value="Off" {% if editdata.status == 'Off' %} checked {% endif %}>Off
         </div>
         

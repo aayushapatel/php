@@ -7,5 +7,6 @@
         const DB_PASSWORD = '';
         const SHOW_ERRORS = true;
         const URL = "http://localhost/product_category/public/";
+        const DOCUMENT_ROOT = 'C:/xampp/htdocs/product_category/public/';
     }
 ?>

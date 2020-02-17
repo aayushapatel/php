@@ -32,10 +32,10 @@
           
         }
         public static function  join($query) {
-         
             $db = static::getDatabase();
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $data = $db->query($query);
+            return $data->fetchAll(PDO::FETCH_ASSOC);
 
           
         }

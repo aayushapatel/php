@@ -14,7 +14,6 @@ class productModel extends \App\Models\BaseQuery {
                     $productData['SKU'] = "'".$value."'";
                 break;
                   case 'url':
-                      $value = strtolower(str_replace(" ", "-", $value));
                       $productData['Url_key'] = "'".$value."'";
                   break;
                   case 'image':

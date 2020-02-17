@@ -10,10 +10,16 @@
         $this->add('admin/{controller}/{action}/{id:\d+}',['namespace' => 'Admin']);
         $this->add('admin/{controller}/',['namespace' => 'Admin']);
         $this->add('admin/{controller}',['namespace' => 'Admin']);
-        $this->add('{controller}');
-        $this->add('{controller}/');
-        $this->add('{controller}/{action}');
-        $this->add('{controller}/{action}/{id:\d+}');
+        $this->add('user/{controller}/{action}',['namespace' => 'User']);
+        $this->add('user/{controller}/{action}/{url}',['namespace' => 'User']);
+        $this->add('user/{controller}/',['namespace' => 'User']);
+        $this->add('user/{controller}',['namespace' => 'User']);
+
+        // $this->add('{controller}');
+        // $this->add('{controller}/');
+        // $this->add('{controller}/{action}');
+        // $this->add('{controller}/{action}/{id:\d+}');
+        // $this->add('{controller}/{action}/{url}');
            $this->dispatch($_SERVER['QUERY_STRING']); 
         }
         public function add($route, $params = []) {

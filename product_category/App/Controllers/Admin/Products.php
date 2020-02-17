@@ -21,7 +21,7 @@ class Products extends \Core\BaseController {
             if($this->validate($_POST)) {
                 $categoryId = BaseQuery::selectData('products','product_id',"Url_key = '".$_POST['url']."'");
                 if(empty($categoryId)) {
-                    
+                   
                     $id = productModel::insertConverter($_POST);
                     header("Location:".config::URL."Admin/Products/");
                 }
@@ -45,7 +45,7 @@ class Products extends \Core\BaseController {
         if(isset($_POST['addProduct'])) {
             $_POST['url'] = $this->generateUrl($_POST['url']);
             $_POST['image'] = $_FILES['image']['name'];
-            if($this->validate($_POST)) {
+            if($this->validate($_POST, true)) {
                 $categoryId = BaseQuery::selectData('products','product_id',"Url_key = '".$_POST['url']."' and product_id!=".$this->params['id']);
                 if(empty($categoryId)) {
                     
@@ -54,7 +54,7 @@ class Products extends \Core\BaseController {
                 }
                 else {
                     echo "<script>alert('URL Exists'); </script>";
-                    BaseView::renderTemplate('Admin/addProducts.html',['category'=>$this->category,'action'=>'Update','editdata'=>$editdata[0],'editdata'=>$editdata[0]]);
+                    BaseView::renderTemplate('Admin/addProducts.html',['category'=>$this->category,'action'=>'Update','editdata'=>$editdata[0]]);
                 }
             }
             else {
@@ -71,7 +71,7 @@ class Products extends \Core\BaseController {
         BaseQuery::deleteData('products','product_id='.$this->params['id']);
         header('Location:'.config::URL.'Admin/Products');
     }
-    protected function validate($fields) {
+    protected function validate($fields, $imageValidate=false) {
         $error = [];
         
         foreach ($fields as $key => $value) {
@@ -82,10 +82,15 @@ class Products extends \Core\BaseController {
                 case 'status':
                 case 'description':
                 case 'shortDescription':
+                
                     if(empty($value)) {
                         $error[$key] = "*Invalid Input";
                     }
                 break;
+                case 'category' :
+                    if($value == 0) {
+                        $error[$key] = "Select a option";
+                    }
                 case 'price' :
                 case 'stock':
                     if(($value < 0) || empty($value)) {
@@ -93,8 +98,14 @@ class Products extends \Core\BaseController {
                     }
                 break;
                 case 'image':
+                    if($imageValidate) {
+                        break;
+                    }
                     if(!in_array($_FILES['image']['type'],['image/jpg','image/jpeg','image/png'])) {
                         $error[$key] = 'Image in jpg format';
+                    }
+                    else {
+                        move_uploaded_file($_FILES['image']['tmp_name'],config::DOCUMENT_ROOT."uploads/".$_FILES['image']['name']);
                     }
                 break;
             }

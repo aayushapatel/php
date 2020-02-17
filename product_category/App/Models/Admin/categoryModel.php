@@ -11,7 +11,6 @@ class categoryModel extends \App\Models\BaseQuery {
                       $categoryData['category_name'] = "'".$value."'";
                   break;
                   case 'url':
-                      $value = strtolower(str_replace(" ", "-", $value));
                       $categoryData['Url_key'] = "'".$value."'";
                   break;
                   case 'image':

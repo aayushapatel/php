@@ -1,0 +1,6 @@
+{% extends 'User/index.html' %}
+{% block body %}
+    {% for products in content %}
+        {{products.product_id}}
+    {% endfor %}
+{% endblock %}

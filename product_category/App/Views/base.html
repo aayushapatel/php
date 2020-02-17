@@ -17,13 +17,16 @@
 		font-family: 'Roboto', sans-serif;
 	}
 	nav {
-		float: right;
+		height: 50px;
+		padding-top: 6px;
+		background-color: #e6e6e6 ;
 		margin-right: 20px;
-		margin-top: 20px;
+		margin-top: 25px;
 
 	}
 	a {
-		margin-left: 5px;
+		vertical-align: middle;
+		margin-left: 20px;
 	}
 	.form-control {
         min-height: 41px;
@@ -100,6 +103,7 @@
 		</nav>
 		<br>
         {% block body %}
-        {% endblock %}
+		{% endblock %}
+		
     </body>
 </html>

@@ -1,12 +1,12 @@
 {% extends 'Admin/baseloggedIn.html' %}
 {% block title %}  Login {% endblock %}
 {% block body %}
-<h1>Products</h1>
-<button><a href="{{URL}}Admin/Products/add">Add Products</a></button>
+<h1>CMS Pages</h1>
+<button><a href="{{URL}}Admin/Cms/add">Add CMS Page</a></button>
 
 <table>
     <tr>
-      
+        
             {% for record,value in data[0] %}
             <th>{{record}}</th>
             {% endfor %}
@@ -18,14 +18,12 @@
     {% for grid in data %}
     <tr>
         {% for key,record in grid %}
-            {% if key == 'image' %}
-                <td><img src="{{URL}}uploads/{{record}}" alt="Products" height="50px" width="50px"></td>
-            {% else %}
+            
                 <td>{{record}}</td>
-            {% endif %}
+    
         {% endfor %}
-         <td><a href="{{URL}}Admin/Products/edit/{{grid.product_id}}">Edit </a></td>
-        <td><a href="{{URL}}Admin/Products/delete/{{grid.product_id}}">Delete </a></td> 
+        <td><a href="{{URL}}Admin/Cms/edit/{{grid.cms_id}}">Edit </a></td>
+        <td><a href="{{URL}}Admin/Cms/delete/{{grid.cms_id}}">Delete </a></td>
     </tr>
     {% endfor %}
 </table>
@@ -40,4 +38,4 @@
 
 
 
-{% endblock %}
+{% endblock %}  
