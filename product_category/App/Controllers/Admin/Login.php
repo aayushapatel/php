@@ -1,6 +1,7 @@
 <?php
     namespace App\Controllers\Admin;
-use App\Models\Post;
+use App\Models\Admin\register;
+use App\Models\BaseQuery;
 use Core\BaseView;
 use App\config;
 session_start();
@@ -28,7 +29,7 @@ class Login extends \Core\BaseController{
         
         protected function checkLogin($fields) {
             $error = [];
-            $authenticateData = Post::selectData('user', 'user_id,password', "email='".$fields['email']."'");
+            $authenticateData = BaseQuery::selectData('user', 'user_id,password', "email='".$fields['email']."'");
             
             if(!empty($authenticateData)) {
                 if($authenticateData[0]['password'] !== md5($fields['password'])) {
@@ -45,17 +46,13 @@ class Login extends \Core\BaseController{
             return ($error);
         }
         public function registrationAction() {
-            $data = Post::selectData('prefix','prefix_name');
+            $data = BaseQuery::selectData('prefix','prefix_name');
             if(isset($_POST['signUp'])) {
                 if($this->validate($_POST)) {
-                    $userId = POST::selectData('user','user_id',"email = '".$_POST['email']."'");
+                    $userId = BaseQuery::selectData('user','user_id',"email = '".$_POST['email']."'");
                     if(empty($userId)) {
-                        $userData = $this->converter($_POST);
-                        $userKeys = array_keys($userData);
-                        $userValue = array_values($userData);
-                        $id = Post::insertData('user',implode(", ",$userKeys), implode(",", $userValue));
+                        $id = register::converter($_POST);
                         $_SESSION['userId'] = $id;
-                        echo "<script>alert('Registered Successfully'); </script>";
                         header("Location:".config::URL."Admin/Dashboard");
                     }
                     else {
@@ -115,38 +112,7 @@ class Login extends \Core\BaseController{
             $this->error = $error;
             return (empty($error))?true:false;
         }
-        
-        protected static function converter($fields) {
-            $userData = array();
-              foreach ($fields as $key => $value) {
       
-                  switch ($key) {
-                      case 'prefixSelect':
-                          $userData['prefix'] = "'".$value."'";
-                      break;
-                      case 'firstname':
-                          $userData['firstName'] = "'".$value."'";
-                      break;
-                      case 'lastname':
-                          $userData['lastName'] = "'".$value."'";
-                      break;
-                      case 'information':
-                          $userData['information'] = "'".$value."'";
-                      break;
-                      case 'password':
-                          $userData['password'] = "'".md5($value)."'";
-                      break;
-                      case 'mobilenumber' :
-                          $userData['mobileNumber'] = "'".$value."'";
-                      break;
-                      case 'email':
-                          $userData['email'] = "'".$value."'";
-                      break;
-                  }
-              }
-              return $userData;
-            }
-
         public function logout() {
             session_destroy();
             header("Location:".config::URL."Admin/login");

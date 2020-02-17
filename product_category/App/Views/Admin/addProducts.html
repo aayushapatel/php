@@ -1,0 +1,75 @@
+{% extends 'Admin/baseloggedIn.html' %}
+{% block title %}  Login {% endblock %}
+{% block body %}
+
+<div class="signup-form">
+    <h1>Product</h1>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="text" class="form-control" name="productName" value="{{editdata.product_name}}" placeholder="Product Name">
+        </div>
+        {%if error.productName %}
+            <span>{{error.productName}}</span>
+        {% endif %}
+        <div class="form-group">
+            <input type="text" class="form-control" name="sku" value="{{editdata.SKU}}" placeholder="SKU">
+        </div>
+        {%if error.sku %}
+            <span>{{error.sku}}</span>
+        {% endif %}
+        <div class="form-group">
+            <input type="text" class="form-control" name="url"  value="{{editdata.Url_key}}" placeholder="URL Key ">
+        </div>
+        {%if error.url %}
+            <span>{{error.url}}</span>
+        {% endif %}
+        <div class="form-group">Image
+            <input type="file" class="form-control" name="image"   title="Select a Image"> {{editdata.image}}
+        </div>
+        {%if error.image %}
+            <span>{{error.image}}</span>
+        {% endif %}
+        <div class="form-group">Status
+            <input type="radio" name="status" value="On"  {% if editdata.status == 'On' %} checked {% endif %}>On
+            <input type="radio" name="status" value="Off" {% if editdata.status == 'Off' %} checked {% endif %}>Off
+        </div>
+        
+        <div class="form-group">
+            <textarea name="description" class="form-control" placeholder="Description" cols="30" rows="3">{{editdata.description}}</textarea>
+        </div>
+        {%if error.description %}
+            <span>{{error.description}}</span>
+        {% endif %}
+        <div class="form-group">
+            <textarea name="shortDescription" class="form-control" placeholder="Short Description" cols="30" rows="3">{{editdata.short_description}}</textarea>
+        </div>
+        {%if error.shortDescription %}
+            <span>{{error.shortDescription}}</span>
+        {% endif %}
+        <div class="form-group">
+            <input type="number" class="form-control" name="price"  value="{{editdata.price}}" placeholder=" Price ">
+        </div>
+        {%if error.price %}
+            <span>{{error.price}}</span>
+        {% endif %}
+        <div class="form-group">
+            <input type="number" class="form-control" name="stock"  value="{{editdata.stock}}" placeholder="stock">
+        </div>
+        {%if error.stock %}
+            <span>{{error.stock}}</span>
+        {% endif %}
+        
+        <div class="form-group">Category
+            <select name="category" class="form-control">
+                {% for cat in category %} 
+                    <option value="{{cat.category_id}}" {% if cat.category_id == editdata.child_category %} selected {% endif %}>{{cat.category_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg" name="addProduct">{{action}}</button>
+        </div>
+    
+    </form>
+</div>
+{% endblock %}

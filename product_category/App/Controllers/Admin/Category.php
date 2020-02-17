@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers\Admin;
-use App\Models\Post;
+use App\Models\BaseQuery;
+use App\Models\Admin\categoryModel;
 use Core\BaseView;
 use App\config;
 use PDO;
@@ -8,80 +9,96 @@ use PDO;
 class Category extends \Core\BaseController {
     public function __construct($route_params)   {
         parent::__construct($route_params);
-        $this->category = Post::selectData('category','category_id,category_name','parent_category=0');
+        
     }
     public function indexAction() {
-        $grid = Post::selectData('category','*');
+        $grid = BaseQuery::selectData('category','*');
         BaseView::renderTemplate('Admin/category.html',['data'=>$grid]);
     }
     public function addAction() {
-        
+        $category = BaseQuery::selectData('category','category_id,category_name','parent_category=0');
         if(isset($_POST['addCategory'])) {
-
+            $_POST['url'] = $this->generateUrl($_POST['url']);
             $_POST['image'] = $_FILES['image']['name'];
             if($this->validate($_POST)) {
-               
-                $categoryId = POST::selectData('category','category_id',"Url_key = '".$_POST['url']."'");
+                $categoryId = BaseQuery::selectData('category','category_id',"Url_key = '".$_POST['url']."'");
                 if(empty($categoryId)) {
-                    $categoryData = $this->converter($_POST);
-                    $categoryKeys = array_keys($categoryData);
-                    $categoryValue = array_values($categoryData);
-                    $id = Post::insertData('category',implode(", ",$categoryKeys), implode(",", $categoryValue));
+                    
+                    $id = categoryModel::insertConverter($_POST);
                     header("Location:".config::URL."Admin/Category/");
                 }
                 else {
                     echo "<script>alert('URL Exists'); </script>";
-                    BaseView::renderTemplate('Admin/addCategory.html',['action'=>'Add','parentCategory'=>$this->category]);
+                    BaseView::renderTemplate('Admin/addCategory.html',['action'=>'Add','parentCategory'=>$category]);
                 }
             }
             else {
                 
-                BaseView::renderTemplate('Admin/addCategory.html',['action'=>'Add','error'=>$this->error,'parentCategory'=>$this->category]);
+                BaseView::renderTemplate('Admin/addCategory.html',['action'=>'Add','error'=>$this->error,'parentCategory'=>$category]);
             }
             
         }
         else {
-            BaseView::renderTemplate('Admin/addCategory.html',['action'=>'Add','parentCategory'=>$this->category]);
+            BaseView::renderTemplate('Admin/addCategory.html',['action'=>'Add','parentCategory'=>$category]);
         }
    
     }
     public function editAction() {
-        
-        $editdata = Post::selectData('category','*','category_id='.$this->params['id']);
+        $category = BaseQuery::selectData('category','category_id,category_name','parent_category=0 and category_id!='.$this->params['id']);
+        $editdata = BaseQuery::selectData('category','*','category_id='.$this->params['id']);
         
         if(isset($_POST['addCategory'])) {
-
+            $_POST['url'] = $this->generateUrl($_POST['url']);
             $_POST['image'] = $_FILES['image']['name'];
             if($this->validate($_POST)) {
                
-                $categoryId = POST::selectData('category','category_id',"Url_key = '".$_POST['url']." and category_id!=".$this->params['id']."'");
+                $categoryId = BaseQuery::selectData('category','category_id',"Url_key = '".$_POST['url']." and category_id!=".$this->params['id']."'");
                 if(empty($categoryId)) {
-                    $categoryData = $this->converter($_POST);
-                    $data = [];
-                    foreach ($categoryData as $key => $value) {
-                        array_push($data, "$key = $value");
-                    }
-                    $id = Post::updateData('category',implode(", ", $data),'category_id='.$this->params['id']);
+                    $id = categoryModel::updateConverter($_POST, $this->params['id']);
                     header("Location:".config::URL."Admin/Category/");
                 }
                 else {
                     echo "<script>alert('URL Exists'); </script>";
-                    BaseView::renderTemplate('Admin/addCategory.html',['action'=>'Update','parentCategory'=>$this->category,'editdata'=>$editdata[0]]);
+                    BaseView::renderTemplate('Admin/addCategory.html',['action'=>'Update','parentCategory'=>$category,'editdata'=>$editdata[0]]);
                 }
             }
             else {
                 BaseView::renderTemplate('Admin/addCategory.html',
-                ['action'=>'Update','error'=>$this->error,'parentCategory'=>$this->category,'editdata'=>$editdata[0]]);
+                ['action'=>'Update','error'=>$this->error,'parentCategory'=>$category,'editdata'=>$editdata[0]]);
             }
             
         }
         else {
-            BaseView::renderTemplate('Admin/addCategory.html',['action'=>'Update','parentCategory'=>$this->category,'editdata'=>$editdata[0]]);
+            BaseView::renderTemplate('Admin/addCategory.html',['action'=>'Update','parentCategory'=>$category,'editdata'=>$editdata[0]]);
         }
    
     }
+    public function deleteAction() {
+        $ids = BaseQuery::selectData('category','category_id','parent_category='.$this->params['id']);
+        if(!empty($ids)) {
+            foreach ($ids as $value) {
+                $this->deleteProduct($value['category_id']);
+                BaseQuery::deleteData('category','category_id='.$value['category_id']);
+            }
+        }
+        else {
+            $this->deleteProduct($this->params['id']);
+        }
+        BaseQuery::deleteData('category','category_id='.$this->params['id']);
+        header('Location:'.config::URL.'Admin/Category');
+    }
+    protected function deleteProduct($category_id) {
+        $productId = BaseQuery::selectData('products_categories','product_id','category_id='.$category_id);
+        foreach ($productId as $value) {
+            foreach ($value as $product_id) {
+                BaseQuery::deleteData('products','product_id='.$product_id);
+            }
+           
+        }
+    }
     protected function validate($fields) {
         $error = [];
+        
         foreach ($fields as $key => $value) {
             switch ($key) {
                 case 'categoryName':
@@ -89,7 +106,7 @@ class Category extends \Core\BaseController {
                 
                 case 'status':
                 case 'description':
-                case 'parentCategory':
+                
                     if(empty($value)) {
                         $error[$key] = "*Invalid Input";
                     }
@@ -101,41 +118,12 @@ class Category extends \Core\BaseController {
                 break;
             }
         }
-        
         $this->error = $error;
         return (empty($error))?true:false;
     }
+    protected static function generateUrl($url) {
+        return str_replace(" ", "-", strtolower($url));
+    }
     
-    protected static function converter($fields) {
-        $categoryData = array();
-        $categoryData['parent_category'] = 0;
-          foreach ($fields as $key => $value) {
-  
-              switch ($key) {
-                  case 'categoryName':
-                      $categoryData['category_name'] = "'".$value."'";
-                  break;
-                  case 'url':
-                      $value = strtolower(str_replace(" ", "-", $value));
-                      $categoryData['Url_key'] = "'".$value."'";
-                  break;
-                  case 'image':
-                      $categoryData['image'] = "'".$value."'";
-                  break;
-                  case 'status':
-                      $categoryData['status'] = "'".$value."'";
-                  break;
-                  case 'description':
-                      $categoryData['description'] = "'".$value."'";
-                  break;
-                  case 'parentCategory' :
-                          $categoryData['parent_category'] = $value;
-                      
-                      
-                  break;
-              }
-          }
-          return $categoryData;
-        }
 }
 ?>

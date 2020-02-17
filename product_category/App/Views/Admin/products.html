@@ -1,8 +1,8 @@
 {% extends 'Admin/baseloggedIn.html' %}
 {% block title %}  Login {% endblock %}
 {% block body %}
-<h1>Category</h1>
-<button><a href="{{URL}}Admin/Category/add">Add Category</a></button>
+<h1>Products</h1>
+<button><a href="{{URL}}Admin/Products/add">Add Products</a></button>
 
 <table>
     <tr>
@@ -18,8 +18,8 @@
         {% for record in grid %}
         <td>{{record}}</td>
         {% endfor %}
-        <td><a href="{{URL}}Admin/Category/edit/{{grid.category_id}}">Edit </a></td>
-        <td><a href="{{URL}}Admin/Category/delete/{{grid.category_id}}">Delete </a></td>
+         <td><a href="{{URL}}Admin/Products/edit/{{grid.product_id}}">Edit </a></td>
+        <td><a href="{{URL}}Admin/Products/delete/{{grid.product_id}}">Delete </a></td> 
     </tr>
     {% endfor %}
 </table>

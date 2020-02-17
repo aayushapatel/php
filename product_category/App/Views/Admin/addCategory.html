@@ -36,7 +36,7 @@
         {% endif %}
         <div class="form-group">
             <select name="parentCategory" class="form-control">
-                <option>Parent</option>
+                <option value="0">----Parent----</option>
                 {% for cat in parentCategory %} 
                     <option value="{{cat.category_id}}" {% if cat.category_id == editdata.parent_category %} selected {% endif %}>{{cat.category_name}}</option>
                 {% endfor %}
