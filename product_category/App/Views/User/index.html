@@ -5,14 +5,15 @@
     <li><a href="{{URL}}">Home</a></li> 
     {% for categories in category %} 
     <li class="dropdown">
-        <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{categories.category_name}} <b class="caret"></b></a>
-        {% if childCategory %}
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{categories.parent_category}} <b class="caret"></b></a>
+        
             <ul class="dropdown-menu">
+                {% set childCategory = categories.child_category|split(',') %}
                 {% for child in childCategory %}
-                <li><a href="{{URL}}User/View/viewProduct/{{child.category_name}}">{{child.category_name}}</a></li>
+                <li><a href="{{URL}}User/View/viewProducts/{{child}}">{{child}}</a></li>
                 {% endfor %}
             </ul>
-        {% endif %}
+        
 
     </li>
     {% endfor %}

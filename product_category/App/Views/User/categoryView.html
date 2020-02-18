@@ -1,6 +1,11 @@
 {% extends 'User/index.html' %}
 {% block body %}
     {% for products in content %}
-        {{products.product_id}}
+    <div style="display: inline-flex; margin: 30px;">
+        <a href="{{URL}}User/View/viewOneProduct/{{products.Url_key}}">
+            <img src="{{URL}}uploads/{{products.image}}" alt="{{products.image}}" height="250px" width="200px">
+            <h6><center>{{products.product_name}}</center></h6>
+        </a>
+    </div>
     {% endfor %}
 {% endblock %}

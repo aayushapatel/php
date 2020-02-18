@@ -1,0 +1,31 @@
+{% extends 'User/index.html' %}
+{% block body %}
+   
+    <div style="display: inline-flex; margin: 30px; border: 1px dotted grey; padding:20px 20px 20px 20px; width:40%; height:70%;">
+        
+        <div>
+            <img src="{{URL}}uploads/{{content.image}}" alt="{{products.image}}" height="250px" width="200px">
+        </div>
+        <div style="margin-left: 20px;">
+            <div>
+                <h4><center>{{content.product_name}}</center></h4>
+            </div>
+            <div>
+                <p>{{content.category_name}}</p>
+            </div>
+            <div>
+                <p>{{content.short_description}}</p>
+            </div>
+            <div>
+                <p>{{content.description}}</p>
+            </div>
+            <div style="float:right;">
+                <h5>Rs. {{content.price}}</h5>
+            </div>
+        </div>   
+            
+        </a>
+    </div>
+    
+    
+{% endblock %}

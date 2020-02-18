@@ -5,14 +5,24 @@ use App\Models\BaseQuery;
 use Core\BaseView;
 
 class Home extends \Core\BaseController {
-    public static function indexAction($file='index') {
+    public static function indexAction() {
         self::view('index');
     }
     public static function view($file, $parameters='') {
-        $category = BaseQuery::selectData('category','category_name','parent_category=0');
-        $childCategory = BaseQuery::selectData('category','category_name','parent_category!=0');
+        $category = BaseQuery::join("SELECT
+        cc.category_name AS parent_category,
+        GROUP_CONCAT(c.category_name) AS child_category
+    FROM
+        category c
+    JOIN category cc ON
+        c.parent_category = cc.category_id
+    WHERE c.status = 'On' and cc.status = 'On'
+    GROUP BY
+        cc.category_name
+    ORDER BY
+        cc.category_name");
         $cms = BaseQuery::selectData('cms_pages','page_title,Url_key');
-        BaseView::renderTemplate('User/'.$file.'.html',['category'=>$category,'childCategory'=>$childCategory,'cms'=>$cms,"content" => $parameters]);
+        BaseView::renderTemplate('User/'.$file.'.html',['category'=>$category,'cms'=>$cms,"content" => $parameters]);
     }
     protected function before() {
 
