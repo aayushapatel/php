@@ -41,7 +41,9 @@ class Products extends \Core\BaseController {
         }
     } 
     public function editAction() {
-        $editdata = BaseQuery::selectData('products','*','product_id='.$this->params['id']);
+        $editdata = BaseQuery::join("SELECT p.*, r.category_id as child_category FROM products p LEFT JOIN products_categories r ON r.product_id=p.product_id
+         WHERE p.product_id=".$this->params['id']);
+
         if(isset($_POST['addProduct'])) {
             $_POST['url'] = $this->generateUrl($_POST['url']);
             $_POST['image'] = $_FILES['image']['name'];
@@ -98,7 +100,7 @@ class Products extends \Core\BaseController {
                     }
                 break;
                 case 'image':
-                    if($imageValidate) {
+                    if($imageValidate && empty($_FILES['image']['name'])) {
                         break;
                     }
                     if(!in_array($_FILES['image']['type'],['image/jpg','image/jpeg','image/png'])) {

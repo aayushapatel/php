@@ -1,7 +1,7 @@
 {% extends 'User/index.html' %}
 {% block body %}
    
-    <div style="display: inline-flex; margin: 30px; border: 1px dotted grey; padding:20px 20px 20px 20px; width:40%; height:70%;">
+    <div style="display: inline-flex; margin: 30px; padding:20px 20px 20px 20px; width:40%; height:70%;">
         
         <div>
             <img src="{{URL}}uploads/{{content.image}}" alt="{{products.image}}" height="250px" width="200px">
@@ -19,13 +19,25 @@
             <div>
                 <p>{{content.description}}</p>
             </div>
-            <div style="float:right;">
-                <h5>Rs. {{content.price}}</h5>
+            <div>
+                <h5 align=right>Rs. {{content.price}}</h5>
+            </div>
+            <div>
+                
+                <button type="button" class="btn btn-success" id="addToCart"><i class="fa fa-align-right"></i>Add to Cart</button>
+                <button type="button" class="btn btn-primary"><i class="fa fa-align-right"></i>Buy Now</button>
             </div>
         </div>   
             
         </a>
     </div>
+   <script>
+    var cart = document.getElementById('addToCart');
+    cart.addEventListener('click',function(){
+        var data = { "name" : "{{content.product_name}}","price" : "{{content.price}}", "quantity" : 1};
+        addToCart(data);
+    });
     
+   </script>
     
 {% endblock %}

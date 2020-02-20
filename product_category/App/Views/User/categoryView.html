@@ -3,9 +3,19 @@
     {% for products in content %}
     <div style="display: inline-flex; margin: 30px;">
         <a href="{{URL}}User/View/viewOneProduct/{{products.Url_key}}">
-            <img src="{{URL}}uploads/{{products.image}}" alt="{{products.image}}" height="250px" width="200px">
+            <img src="{{URL}}uploads/{{products.image}}" alt="{{products.image}}" height="150px" width="100px">
             <h6><center>{{products.product_name}}</center></h6>
+            <h1>{{result}}</h1>
         </a>
     </div>
+    <script>
+     $.ajax({
+        url : 'http://localhost/product_category/logs/2020-02-13.txt',
+        method : "POST",
+        success:function(result) {
+            console.log(result);
+        }
+    }); 
+</script>
     {% endfor %}
 {% endblock %}

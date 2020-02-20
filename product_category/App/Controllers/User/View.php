@@ -12,7 +12,8 @@ class View extends \App\Controllers\Home{
         p.product_id,p.product_name,p.image,p.Url_key from category c
         LEFT JOIN products_categories r ON c.category_id=r.category_id
         LEFT JOIN products p ON r.product_id=p.product_id  where category_name = '$url'");
-        self::view('categoryView',$product);
+       
+        self::view('categoryView',($product));
 
     }
     public function viewCms() {

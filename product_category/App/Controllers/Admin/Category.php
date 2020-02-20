@@ -112,7 +112,7 @@ class Category extends \Core\BaseController {
                     }
                 break;
                 case 'image':
-                    if($imageValidate) {
+                    if($imageValidate && empty($_FILES['image']['name'])) {
                         break;
                     }
                     if(!in_array($_FILES['image']['type'],['image/jpg','image/jpeg','image/png'])) {

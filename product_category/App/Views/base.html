@@ -5,12 +5,26 @@
         <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="{{URL}}script/script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-<title>Bootstrap Elegant Sign Up Form</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+{# <script>
+	$(document).ready(function(){
+		$("a").mouseover(function(){
+			$("ul").show();
+		});
+		$(".dropdown-toggle").mouseout(function(){
+			$(".dropdown-menu").hide();
+		});
+	});
+</script> #}
 <style type="text/css">
+	.table {
+		margin-left : 5px;
+	}
 	body {
 		color: #999;
 		background: #fafafa;
@@ -87,7 +101,8 @@
     }
     span {
         color: maroon;
-    }
+	}
+	
 </style>
             <title>
             {% block title %} 

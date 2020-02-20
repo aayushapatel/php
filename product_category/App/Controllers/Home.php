@@ -21,7 +21,7 @@ class Home extends \Core\BaseController {
         cc.category_name
     ORDER BY
         cc.category_name");
-        $cms = BaseQuery::selectData('cms_pages','page_title,Url_key');
+        $cms = BaseQuery::selectData('cms_pages','page_title,Url_key',"status='On'");
         BaseView::renderTemplate('User/'.$file.'.html',['category'=>$category,'cms'=>$cms,"content" => $parameters]);
     }
     protected function before() {
