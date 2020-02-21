@@ -20,8 +20,6 @@
             $db = static::getDatabase();
             $stmt = $db->prepare($query);
             $stmt->execute();
-
-            
         } 
         public static function  deleteData($tableName, $where) {
             $query = "DELETE FROM `$tableName` WHERE $where";

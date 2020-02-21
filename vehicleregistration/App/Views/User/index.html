@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block div %}
+<div style="float: right;"><h4><a href="{{URL}}/User/Home/logout"> Logout </a></h4></div>
+<div>
+    <a href="{{URL}}User/Service">
+        <button type="submit" class="btn btn-primary btn-lg">Service Registration</button>
+    </a>
+    <a href="{{URL}}User/Dashboard">
+        <button type="submit" class="btn btn-primary btn-lg">Home</button>
+    </a>
+</div>
+{% endblock %}

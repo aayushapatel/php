@@ -4,10 +4,8 @@ namespace App\Models\User;
 use App\Models\BaseQuery;
 
 class serviceModel extends \App\Models\BaseQuery {
-    public static function converter($fields) {
+    public static function converter($fields,$id = '',$update='false') {
         $serviceData = array();
-        print_r($fields);
-        
           foreach ($fields as $key => $value) {
   
               switch ($key) {
@@ -32,13 +30,26 @@ class serviceModel extends \App\Models\BaseQuery {
                   case 'serviceCenter':
                     $serviceData['serviceCenter'] = "'".$value."'";
                   break;
+                  case 'status':
+                    $serviceData['status'] = "'".$value."'";
+                  break;
                   
           }
         }
-          $serviceKeys = array_keys($serviceData);
-          $serviceValue = array_values($serviceData);
-          $serviceId = self::insertData('service_registrations',"userId,".implode(", ",$serviceKeys),$_SESSION['userId'].", ". implode(",", $serviceValue));
-          return $serviceId;
+        if($update == false){
+            $serviceKeys = array_keys($serviceData);
+            $serviceValue = array_values($serviceData);
+            $serviceId = self::insertData('service_registrations',"userId,".implode(", ",$serviceKeys),$_SESSION['userId'].", ". implode(",", $serviceValue));
+            return $serviceId;
+        }
+        else {
+            $data = [];
+        foreach ($serviceData as $key => $value) {
+            array_push($data, "$key = $value");
+        }
+        $id = self::updateData('service_registrations',implode(", ", $data),'serviceId='.$id);
+        }
+         
         
     }
 }

@@ -3,7 +3,6 @@ namespace App\Models\User;
 class registerModel extends \App\Models\BaseQuery {
     public static function converter($fields) {
         $userData = $addressData = array();
-        print_r($fields);
           foreach ($fields as $key => $value) {
   
               switch ($key) {

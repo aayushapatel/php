@@ -44,7 +44,7 @@ class Home extends \Core\BaseController {
     }
     
     public function registrationAction() {
-            if(isset($_POST['signUp'])) {
+     if(isset($_POST['signUp'])) {
                 if($this->validate($_POST)) {
                     $userId = BaseQuery::selectData('users','userId',"email = '".$_POST['email']."'");
                     if(empty($userId)) {
@@ -65,7 +65,7 @@ class Home extends \Core\BaseController {
                 BaseView::renderTemplate('User/registration.html');
             }
         }
-        protected function validate($fields) {
+        public function validate($fields) {
             $error = [];
             foreach ($fields as $key => $value) {
                 switch ($key) {

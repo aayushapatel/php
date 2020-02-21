@@ -1,29 +1,38 @@
 <?php
-namespace App\Controllers\User;
+namespace App\Controllers\Admin;
+
+use App\config;
+use App\Models\BaseQuery;
 use Core\BaseView;
 use App\Models\User\serviceModel;
-use App\Models\BaseQuery;
-class Service extends \Core\BaseController {
-    public function indexAction() {
+session_start();
+class Home extends \Core\BaseController{
+    public static function indexAction() {
+        $service = BaseQuery::selectData('service_registrations','*');
+        BaseView::renderTemplate('Admin/dashboard.html',['content'=>$service]);
+    }
+    public function editAction() {
+        $data = BaseQuery::selectData('service_registrations','*','serviceId='.$this->params['id']);
         if(isset($_POST['addService'])) {
             if($this->validate($_POST)) {
-                
-                    $id = serviceModel::converter($_POST);
-                    //header("Location:".config::URL."User/Home/index");
+                $id = serviceModel::converter($_POST,$this->params['id'],true);
+                $service = BaseQuery::selectData('service_registrations','*');
+                BaseView::renderTemplate('Admin/dashboard.html',['content'=>$service]);
+
             }
             else {
-                BaseView::renderTemplate('User/addService.html',['error'=>$this->error,'action'=>'Add']);
+                BaseView::renderTemplate('User/addService.html',['error'=>$this->error,'action'=>'Update','data'=>$data[0]]);
             }
         }
         else {
             
-            BaseView::renderTemplate('User/addService.html',['action'=>'Add']);
+            BaseView::renderTemplate('User/addService.html',['action'=>'Update','data'=>$data[0]]);
         }
     }
     protected function validate($fields) {
         $error = [];
-        $result = BaseQuery::selectData('service_registrations','serviceId',"(vehicleNumber ='".$fields['vehicleNumber']."' or licenseNumber ='".$fields['licenseNumber']."') and userId != ".$_SESSION['userId']." and status='pending'");
-        $date = BaseQuery::selectData('service_registrations','serviceId',"date='".$fields['date']."' and timeSlot='".$fields['timeSlot']."'");
+        $result = BaseQuery::selectData('service_registrations','serviceId',"(vehicleNumber ='".$fields['vehicleNumber']."' or licenseNumber ='".$fields['licenseNumber']."') and serviceId != ".$this->params['id']." and status='pending'");
+        $date = BaseQuery::selectData('service_registrations','serviceId',"date='".$fields['date']."' and timeSlot='".$fields['timeSlot']."' and serviceId != ".$this->params['id']);
         foreach ($fields as $key => $value) {
             switch ($key) {
                 case 'title':
@@ -63,6 +72,13 @@ class Service extends \Core\BaseController {
         $this->error = $error;
         return (empty($error))?true:false;
     }
+    public function deleteAction() {
+        BaseQuery::deleteData('service_registrations','serviceId='.$this->params['id']);
+       header('Location:'.config::URL.'admin/Home/index');
+    }
+    
+    protected function before() {
 
+    }
 }
 ?>

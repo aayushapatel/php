@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} DashBoard {% endblock %}
+{% block div %}
+<table style="margin-top: 70px;" class="table table-striped table-hover">
+    <caption><h2>Service</h2></caption>
+    <tr>
+            {% for record,value in content[0] %}
+            <th>{{record}}</th>
+            {% endfor %}
+            {% if record %}
+                <th colspan=2>Actions</th>
+            {% endif %}
+    </tr>
+    {% for grid in content %}
+    <tr>
+        {% for key,record in grid %}
+                <td>{{record}}</td>
+        {% endfor %}
+        <td><a href="{{URL}}Admin/home/edit/{{grid.serviceId}}">Edit </a></td>
+        <td><a href="{{URL}}Admin/home/delete/{{grid.serviceId}}">Delete </a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

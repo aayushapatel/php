@@ -1,35 +1,31 @@
 {% extends 'base.html' %}
 {% block title %} Service {% endblock %}
-{% block div %}
-<div style="float: right;"><h4><a href="{{URL}}/User/Home/logout"> Logout </a></h4></div>
-<a href="{{URL}}User/Dashboard/"><button class="btn btn-primary btn-lg"> Home</button> </a>
 
-{% endblock %}
 {% block body %}
 <div class="signup-form">
     <form method="post">
 		<h2>Add Service</h2>
         
 		<div class="form-group">
-            <input type="text" class="form-control" name="title" placeholder="Title">
+            <input type="text" class="form-control" name="title" value="{{data.title}}" placeholder="Title">
         </div>
         {%if error.title %}
             <span>{{error.title}}</span>
         {% endif %}
 		<div class="form-group">
-        	<input type="text" class="form-control" name="vehicleNumber" placeholder="Vehicle Number">
+        	<input type="text" class="form-control" name="vehicleNumber" value="{{data.vehicleNumber}}" placeholder="Vehicle Number">
         </div>
         {%if error.vehicleNumber %}
             <span>{{error.vehicleNumber}}</span>
         {% endif %}
         <div class="form-group">
-        	<input type="text" class="form-control" name="licenseNumber" placeholder="License Number">
+        	<input type="text" class="form-control" name="licenseNumber" value="{{data.licenseNumber}}"placeholder="License Number">
         </div>
         {%if error.licenseNumber %}
             <span>{{error.licenseNumber}}</span>
         {% endif %}
         <div class="form-group">
-        	<input type="date" class="form-control" name="date">
+        	<input type="date" class="form-control" name="date" value="{{data.date}}">
         </div>
         {%if error.date %}
             <span>{{error.date}}</span>
@@ -39,15 +35,16 @@
 		<div class="form-group">TimeSlot
             <select name="timeSlot" class="form-control">
                 {% for time in timeSlot %}
-                <option value="{{time}}">{{time}}</option>
+                <option value="{{time}}" {% if time == data.timeSlot %} selected {% endif %}>{{time}}</option>
                 {% endfor %}
             </select>
         </div>
         {%if error.timeSlot %}
             <span>{{error.timeSlot}}</span>
         {% endif %}
+        
 		<div class="form-group">
-            <input type="text" class="form-control" name="vehicleIssue" placeholder="Vehicle Issue">
+            <input type="text" class="form-control" name="vehicleIssue" value="{{data.vehicleIssue}}"placeholder="Vehicle Issue">
         </div> 
         {%if error.vehicleIssue %}
             <span>{{error.vehicleIssue}}</span>
@@ -56,17 +53,28 @@
 		<div class="form-group">Service Center
             <select name="serviceCenter" class="form-control">
                 {% for service in serviceCenter %}
-                <option value="{{service}}">{{service}}</option>
+                <option value="{{service}}" {% if service == data.serviceCenter %} selected {% endif %}>{{service}}</option>
                 {% endfor %}
             </select>
         </div>
-        {%if error.serviceCenter %}
+        {% if error.serviceCenter %}
             <span>{{error.serviceCenter}}</span>
         {% endif %}
+        {% if data.status %}
+        {% set statusOption = ['pending', 'approved'] %}
+        <div class="form-group">Status
+            <select name="status" class="form-control">
+                {% for statuss in statusOption %}
+                <option value="{{statuss}}" {% if statuss == data.status %} selected {% endif %}>{{statuss}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+        
         
        
 		<div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg" name="addService">Add Service</button>
+            <button type="submit" class="btn btn-primary btn-lg" name="addService">{{action}}</button>
         </div>
     </form>
 	

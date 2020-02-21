@@ -1,12 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'User/index.html' %}
 {% block title %} DashBoard {% endblock %}
-{% block div %}
-<div style="float: right;"><h4><a href="{{URL}}/User/Home/logout"> Logout </a></h4></div>
-<div>
-    <a href="{{URL}}User/Service">
-        <button type="submit" class="btn btn-primary btn-lg">Service Registration</button>
-    </a>
-</div>
+{% block body %}
+
 <table>
     <tr>
             
@@ -19,12 +14,8 @@
     {% for grid in content %}
     <tr>
         {% for key,record in grid %}
-        
-            {% if key == 'image' %}
-                <td><img src="{{URL}}uploads/{{record}}" alt="Category" height="50px" width="50px" ></td>
-            {% else %}
                 <td>{{record}}</td>
-            {% endif %}
+    
         {% endfor %}
     </tr>
     {% endfor %}
