@@ -6,6 +6,7 @@
         public function __construct() {
         $this->add('', ['controller' => 'Home', 'action' => 'index','namespace'=>'User']);
         $this->add('admin/', ['controller' => 'Home', 'action' => 'index','namespace'=>'Admin']);
+        $this->add('user/', ['controller' => 'Home', 'action' => 'index','namespace'=>'User']);
         $this->add('admin/{controller}/{action}',['namespace' => 'Admin']);
         $this->add('admin/{controller}/{action}/{id:\d+}',['namespace' => 'Admin']);
         $this->add('admin/{controller}/',['namespace' => 'Admin']);

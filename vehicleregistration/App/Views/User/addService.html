@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 {% block title %} Service {% endblock %}
 
+{% block div %}
+{% if data.title =='' %}
+<div style="float: right;"><h4><a href="{{URL}}/User/Home/logout"> Logout </a></h4></div>
+<div>
+    <a href="{{URL}}User/Service">
+        <button type="submit" class="btn btn-primary btn-lg">Service Registration</button>
+    </a>
+    <a href="{{URL}}User/Dashboard">
+        <button type="submit" class="btn btn-primary btn-lg">Home</button>
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+
+
 {% block body %}
 <div class="signup-form">
     <form method="post">
-		<h2>Add Service</h2>
+		<h2>{{action}} Service</h2>
         
 		<div class="form-group">
             <input type="text" class="form-control" name="title" value="{{data.title}}" placeholder="Title">
@@ -74,7 +89,7 @@
         
        
 		<div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg" name="addService">{{action}}</button>
+            <button type="submit" class="btn btn-primary btn-lg" name="addService">{{action}} Service</button>
         </div>
     </form>
 	

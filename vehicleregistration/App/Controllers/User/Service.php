@@ -3,13 +3,14 @@ namespace App\Controllers\User;
 use Core\BaseView;
 use App\Models\User\serviceModel;
 use App\Models\BaseQuery;
+use App\config;
 class Service extends \Core\BaseController {
     public function indexAction() {
         if(isset($_POST['addService'])) {
             if($this->validate($_POST)) {
                 
-                    $id = serviceModel::converter($_POST);
-                    //header("Location:".config::URL."User/Home/index");
+                    $id = serviceModel::insertConverter($_POST);
+                    header("Location:".config::URL."User/Dashboard/index");
             }
             else {
                 BaseView::renderTemplate('User/addService.html',['error'=>$this->error,'action'=>'Add']);

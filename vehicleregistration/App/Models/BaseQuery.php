@@ -4,13 +4,13 @@
     class BaseQuery extends \Core\BaseModel {
         public static function selectData($tableName, $fields, $where = 1) {
             $db = static::getDatabase();
-            echo $query = "SELECT $fields FROM $tableName WHERE $where";
+            $query = "SELECT $fields FROM $tableName WHERE $where";
             $data = $db->query($query);
             return $data->fetchAll(PDO::FETCH_ASSOC);
         }
         public static function insertData($tableName, $fields, $values) {
             $db = static::getDatabase();
-            echo $query ="INSERT INTO $tableName ($fields) VALUES ($values)";
+            $query ="INSERT INTO $tableName ($fields) VALUES ($values)";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $db->lastInsertId();

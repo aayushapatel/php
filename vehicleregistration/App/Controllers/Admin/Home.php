@@ -9,13 +9,15 @@ session_start();
 class Home extends \Core\BaseController{
     public static function indexAction() {
         $service = BaseQuery::selectData('service_registrations','*');
+        $service = BaseQuery::join('SELECT s.serviceId, u.userId, u.firstName, u.lastName, s.title, s.vehicleNumber, s.licenseNumber, s.date, s.timeSlot,s.vehicleIssue,s.serviceCenter, s.status, s.createdDate FROM `service_registrations` s
+        LEFT JOIN users u ON s.userId = u.userId');
         BaseView::renderTemplate('Admin/dashboard.html',['content'=>$service]);
     }
     public function editAction() {
         $data = BaseQuery::selectData('service_registrations','*','serviceId='.$this->params['id']);
         if(isset($_POST['addService'])) {
             if($this->validate($_POST)) {
-                $id = serviceModel::converter($_POST,$this->params['id'],true);
+                $id = serviceModel::updateConverter($_POST,$this->params['id'],true);
                 $service = BaseQuery::selectData('service_registrations','*');
                 BaseView::renderTemplate('Admin/dashboard.html',['content'=>$service]);
 
