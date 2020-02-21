@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %} Service {% endblock %}
+{% block div %}
+<div style="float: right;"><h4><a href="{{URL}}/User/Home/logout"> Logout </a></h4></div>
+<a href="{{URL}}User/Dashboard/"><button class="btn btn-primary btn-lg"> Home</button> </a>
+
+{% endblock %}
+{% block body %}
+<div class="signup-form">
+    <form method="post">
+		<h2>Add Service</h2>
+        
+		<div class="form-group">
+            <input type="text" class="form-control" name="title" placeholder="Title">
+        </div>
+        {%if error.title %}
+            <span>{{error.title}}</span>
+        {% endif %}
+		<div class="form-group">
+        	<input type="text" class="form-control" name="vehicleNumber" placeholder="Vehicle Number">
+        </div>
+        {%if error.vehicleNumber %}
+            <span>{{error.vehicleNumber}}</span>
+        {% endif %}
+        <div class="form-group">
+        	<input type="text" class="form-control" name="licenseNumber" placeholder="License Number">
+        </div>
+        {%if error.licenseNumber %}
+            <span>{{error.licenseNumber}}</span>
+        {% endif %}
+        <div class="form-group">
+        	<input type="date" class="form-control" name="date">
+        </div>
+        {%if error.date %}
+            <span>{{error.date}}</span>
+        {% endif %}
+        
+        {% set timeSlot = ['9-10', '10-11', '11-12', '12-1','1-2','2-3', '3-4','4-5','5-6'] %}
+		<div class="form-group">TimeSlot
+            <select name="timeSlot" class="form-control">
+                {% for time in timeSlot %}
+                <option value="{{time}}">{{time}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {%if error.timeSlot %}
+            <span>{{error.timeSlot}}</span>
+        {% endif %}
+		<div class="form-group">
+            <input type="text" class="form-control" name="vehicleIssue" placeholder="Vehicle Issue">
+        </div> 
+        {%if error.vehicleIssue %}
+            <span>{{error.vehicleIssue}}</span>
+        {% endif %}
+        {% set serviceCenter = ['Service1', 'Service2', 'Service3'] %}
+		<div class="form-group">Service Center
+            <select name="serviceCenter" class="form-control">
+                {% for service in serviceCenter %}
+                <option value="{{service}}">{{service}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {%if error.serviceCenter %}
+            <span>{{error.serviceCenter}}</span>
+        {% endif %}
+        
+       
+		<div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg" name="addService">Add Service</button>
+        </div>
+    </form>
+	
+</div>
+
+{% endblock %}

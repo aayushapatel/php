@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}  Login {% endblock %}
+{% block body %}
+<!-- Material form login -->
+<div class="signup-form">
+    <form method="post">
+		<h2>Sign Up</h2>
+        
+		<div class="form-group">
+            <input type="text" class="form-control" name="firstName" placeholder="First Name">
+        </div>
+        {%if error.firstName %}
+            <span>{{error.firstName}}</span>
+        {% endif %}
+		<div class="form-group">
+        	<input type="text" class="form-control" name="lastName" placeholder="Last Name">
+        </div>
+        {%if error.lastName %}
+            <span>{{error.lastName}}</span>
+        {% endif %}
+        <div class="form-group">
+        	<input type="email" class="form-control" name="email" placeholder="Email Address">
+        </div>
+        {%if error.email %}
+            <span>{{error.email}}</span>
+        {% endif %}
+        <div class="form-group">
+        	<input type="text" class="form-control" name="phoneNumber" placeholder="Phone Number">
+        </div>
+        {%if error.phoneNumber %}
+            <span>{{error.phoneNumber}}</span>
+        {% endif %}
+		<div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        {%if error.password %}
+            <span>{{error.password}}</span>
+        {% endif %}
+		<div class="form-group">
+            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
+        </div> 
+        {%if error.confirm_password %}
+            <span>{{error.confirm_password}}</span>
+        {% endif %}
+        <div class="form-group">
+            <input type="text" class="form-control" name="street" placeholder="Street ">
+        </div> 
+        {%if error.street %}
+            <span>{{error.street}}</span>
+        {% endif %}
+        <div class="form-group">
+            <input type="text" class="form-control" name="city" placeholder="City">
+        </div> 
+        {%if error.city %}
+            <span>{{error.city}}</span>
+        {% endif %}
+        <div class="form-group">
+            <input type="text" class="form-control" name="state" placeholder="State ">
+        </div> 
+        {%if error.state %}
+            <span>{{error.state}}</span>
+        {% endif %}
+        <div class="form-group">
+            <input type="number" class="form-control" name="zipCode" placeholder="Zip Code ">
+        </div> 
+        {%if error.zipCode %}
+            <span>{{error.zipCode}}</span>
+        {% endif %}
+        <div class="form-group">
+            <input type="text" class="form-control" name="country" placeholder="Country ">
+        </div> 
+        {%if error.country %}
+            <span>{{error.country}}</span>
+        {% endif %}
+        
+        
+		<div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg" name="signUp">Sign Up</button>
+        </div>
+    </form>
+	
+</div>
+  {% endblock %}
