@@ -12,7 +12,7 @@ class Category extends \Core\BaseController {
         
     }
     public function indexAction() {
-        $grid = BaseQuery::selectData('category','*');
+        $grid = BaseQuery::selectData('category','*',' 1 ORDER BY parent_category DESC');
         BaseView::renderTemplate('Admin/category.html',['data'=>$grid]);
     }
     public function addAction() {
@@ -74,18 +74,19 @@ class Category extends \Core\BaseController {
    
     }
     public function deleteAction() {
-        $ids = BaseQuery::selectData('category','category_id','parent_category='.$this->params['id']);
-        if(!empty($ids)) {
-            foreach ($ids as $value) {
-                $this->deleteProduct($value['category_id']);
-                BaseQuery::deleteData('category','category_id='.$value['category_id']);
+            $ids = BaseQuery::selectData('category','category_id','parent_category='.$this->params['id']);
+            if(!empty($ids)) {
+                foreach ($ids as $value) {
+                    $this->deleteProduct($value['category_id']);
+                    BaseQuery::deleteData('category','category_id='.$value['category_id']);
+                }
             }
-        }
-        else {
-            $this->deleteProduct($this->params['id']);
-        }
-        BaseQuery::deleteData('category','category_id='.$this->params['id']);
-        header('Location:'.config::URL.'Admin/Category');
+            else {
+                $this->deleteProduct($this->params['id']);
+            }
+            BaseQuery::deleteData('category','category_id='.$this->params['id']);
+            //header('Location:'.config::URL.'Admin/Category');
+        
     }
     protected function deleteProduct($category_id) {
         $productId = BaseQuery::selectData('products_categories','product_id','category_id='.$category_id);

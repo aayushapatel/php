@@ -3,10 +3,10 @@
 {% block body %}
 <h1>Category</h1>
 <button><a href="{{URL}}Admin/Category/add">Add Category</a></button>
-
+<form method="post">
 <table>
     <tr>
-      
+            <th></th>
             {% for record,value in data[0] %}
             <th>{{record}}</th>
             {% endfor %}
@@ -17,7 +17,9 @@
     </tr>
     {% for grid in data %}
     <tr>
+        <td><input type="checkbox" name="delete" class="delete_id" id="{{grid.category_id}}"></td>
         {% for key,record in grid %}
+        
             {% if key == 'image' %}
                 <td><img src="{{URL}}uploads/{{record}}" alt="Category" height="50px" width="50px" ></td>
             {% else %}
@@ -25,10 +27,28 @@
             {% endif %}
         {% endfor %}
         <td><a href="{{URL}}Admin/Category/edit/{{grid.category_id}}">Edit </a></td>
-        <td><a href="{{URL}}Admin/Category/delete/{{grid.category_id}}">Delete </a></td>
+        <td><a class="delete" id="{{grid.category_id}}"  >Delete </a></td>
     </tr>
     {% endfor %}
 </table>
+</form>
+<script>
+    $(document).on('click','.delete',function(){
+        document.getElementById(this.id).checked = true;
+        $("input:checkbox[name=delete]:checked").each(function () {
+            
+            var request = $.ajax({
+                url: 'http://localhost/product_category/public/Admin/Category/delete/'+this.id
+            });
+                request.success(function() {
+                });
+          
+        }); 
+        window.location.href=('http://localhost/product_category/public/Admin/Category/');
+            
+        
+    });
+</script>
 
 
 

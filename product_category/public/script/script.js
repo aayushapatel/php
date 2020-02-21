@@ -7,10 +7,7 @@ function addToCart(parms) {
     });
         request.success(function() {
             alert("Added to Cart");
-        });
-        
-    
-    console.log((parms));
+        });  
 }
 function getCart() {
     var request = $.ajax({

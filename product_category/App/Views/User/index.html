@@ -27,6 +27,9 @@
         </button>
     </li>
     <li><a href="{{URL}}admin/login">Sign In</a></li>
+    <li style="float:right; margin-right:10px;">
+      <input type="text" name="search" id="search" class="form-control">
+    </li>
 </ul>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -49,12 +52,20 @@
     </div>
   </div>
  <script>
-    var remove = document.getElementsByClassName('remove');
-    remove.addEventListener('click',function(){ 
-        var product = document.getElementsByClassName("remove")[0].id;
-        var product = {"productName" : product };
-        removeFromCart(product);
-    });
+ 
+  
+$(document).on('click', '.remove', function() {
+  var product = this.id;
+  var product = {"productName" : product };
+  removeFromCart(product);
+});
+document.querySelector('#search').addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    var searchKey = ($('#search').val());
+    window.location.href=('http://localhost/product_category/public/User/Search/searchProduct/'+searchKey);
+   
+  }
+});
  </script>
  
 

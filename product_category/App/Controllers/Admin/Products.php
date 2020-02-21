@@ -71,7 +71,7 @@ class Products extends \Core\BaseController {
     } 
     public function deleteAction() {
         BaseQuery::deleteData('products','product_id='.$this->params['id']);
-        header('Location:'.config::URL.'Admin/Products');
+        
     }
     protected function validate($fields, $imageValidate=false) {
         $error = [];

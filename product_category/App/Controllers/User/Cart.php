@@ -12,7 +12,7 @@ session_start();
             else {
                 $_SESSION['product'][$product[0]['name']] = $product[0];
             }
-        }
+        } 
         public static function getAction() {
             $product = $_SESSION['product'];
             echo json_encode($product);

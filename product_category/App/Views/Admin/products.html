@@ -6,7 +6,7 @@
 
 <table>
     <tr>
-      
+            <th></th>
             {% for record,value in data[0] %}
             <th>{{record}}</th>
             {% endfor %}
@@ -17,6 +17,7 @@
     </tr>
     {% for grid in data %}
     <tr>
+        <td><input type="checkbox" name="delete" class="delete_id" id="{{grid.product_id}}"></td>
         {% for key,record in grid %}
             {% if key == 'image' %}
                 <td><img src="{{URL}}uploads/{{record}}" alt="Products" height="50px" width="50px"></td>
@@ -25,10 +26,27 @@
             {% endif %}
         {% endfor %}
          <td><a href="{{URL}}Admin/Products/edit/{{grid.product_id}}">Edit </a></td>
-        <td><a href="{{URL}}Admin/Products/delete/{{grid.product_id}}">Delete </a></td> 
+        <td><a class="delete" id="{{grid.product_id}}">Delete </a></td> 
     </tr>
     {% endfor %}
 </table>
+<script>
+    $(document).on('click','.delete',function(){
+        document.getElementById(this.id).checked = true;
+        $("input:checkbox[name=delete]:checked").each(function () {
+            console.log(this.id);
+            var request = $.ajax({
+                url: 'http://localhost/product_category/public/Admin/Products/delete/'+this.id
+            });
+                request.success(function() {
+                });
+          
+        }); 
+        window.location.href=('http://localhost/product_category/public/Admin/Products/');
+            
+        
+    });
+</script>
 
 
 

@@ -22,6 +22,25 @@
             <div>
                 <h5 align=right>Rs. {{content.price}}</h5>
             </div>
+            <div class="container">
+	<div class="row">
+        <div class="col-lg-2">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="quantity-left-minus btn-plus btn btn-danger btn-number"  data-type="minus" data-field="">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="10" readonly>
+                <span class="input-group-btn">
+                    <button type="button" class="quantity-right-plus btn btn-success btn-plus btn-number" data-type="plus" data-field="">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
+	</div>
+</div>
             <div>
                 
                 <button type="button" class="btn btn-success" id="addToCart"><i class="fa fa-align-right"></i>Add to Cart</button>
@@ -32,11 +51,41 @@
         </a>
     </div>
    <script>
-    var cart = document.getElementById('addToCart');
-    cart.addEventListener('click',function(){
-        var data = { "name" : "{{content.product_name}}","price" : "{{content.price}}", "quantity" : 1};
+    
+    $(document).ready(function(){
+
+var quantitiy=0;
+   $('.quantity-right-plus').click(function(e){
+                // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        var quantity = parseInt($('#quantity').val());
+                // If is not undefined
+        if(quantity<5){
+          $('#quantity').val(quantity + 1);
+            // Increment
+        }
+        
+    });
+
+     $('.quantity-left-minus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        var quantity = parseInt($('#quantity').val());
+             // If is not undefined
+                  // Increment
+            if(quantity>1){
+                $('#quantity').val(quantity - 1);
+            }
+    });
+    $('#addToCart').click(function(){
+        var data = { "name" : "{{content.product_name}}","price" : "{{content.price}}", "quantity" : document.getElementById('quantity').value};
+        document.getElementById('quantity').value=1;
         addToCart(data);
     });
+    
+});
     
    </script>
     

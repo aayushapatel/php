@@ -8,14 +8,6 @@
             <h1>{{result}}</h1>
         </a>
     </div>
-    <script>
-     $.ajax({
-        url : 'http://localhost/product_category/logs/2020-02-13.txt',
-        method : "POST",
-        success:function(result) {
-            console.log(result);
-        }
-    }); 
-</script>
+    
     {% endfor %}
 {% endblock %}
