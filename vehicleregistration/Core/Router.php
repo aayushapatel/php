@@ -16,9 +16,9 @@
         $this->add('user/{controller}/',['namespace' => 'User']);
         $this->add('user/{controller}',['namespace' => 'User']);
 
-        // $this->add('{controller}');
-        // $this->add('{controller}/');
-        // $this->add('{controller}/{action}');
+         $this->add('{controller}');
+         $this->add('{controller}/');
+         $this->add('{controller}/{action}');
         // $this->add('{controller}/{action}/{id:\d+}');
         // $this->add('{controller}/{action}/{url}');
            $this->dispatch($_SERVER['QUERY_STRING']); 

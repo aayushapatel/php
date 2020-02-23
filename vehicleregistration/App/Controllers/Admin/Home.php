@@ -34,7 +34,6 @@ class Home extends \Core\BaseController{
     protected function validate($fields) {
         $error = [];
         $result = BaseQuery::selectData('service_registrations','serviceId',"(vehicleNumber ='".$fields['vehicleNumber']."' or licenseNumber ='".$fields['licenseNumber']."') and serviceId != ".$this->params['id']." and status='pending'");
-        $date = BaseQuery::selectData('service_registrations','serviceId',"date='".$fields['date']."' and timeSlot='".$fields['timeSlot']."' and serviceId != ".$this->params['id']);
         foreach ($fields as $key => $value) {
             switch ($key) {
                 case 'title':
@@ -56,12 +55,6 @@ class Home extends \Core\BaseController{
                         $error[$key] = "*Invalid Date";
                     }
                     break;
-                case 'timeSlot':
-                    if(count($date) > 2) {
-                        $error[$key] = "*Already Booked";
-                    }
-                    
-                break;
                 case 'vehicleIssue':
                     if((!preg_match('/^[a-zA-Z0-9 .-]/',$value))  || empty($value))  {
                         $error[$key] = "*Invalid Input";

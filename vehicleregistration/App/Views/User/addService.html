@@ -40,18 +40,15 @@
             <span>{{error.licenseNumber}}</span>
         {% endif %}
         <div class="form-group">
-        	<input type="date" class="form-control" name="date" value="{{data.date}}">
+        	<input type="date"  class="form-control date" name="date" value="{{data.date}}">
         </div>
         {%if error.date %}
             <span>{{error.date}}</span>
         {% endif %}
         
-        {% set timeSlot = ['9-10', '10-11', '11-12', '12-1','1-2','2-3', '3-4','4-5','5-6'] %}
 		<div class="form-group">TimeSlot
-            <select name="timeSlot" class="form-control">
-                {% for time in timeSlot %}
-                <option value="{{time}}" {% if time == data.timeSlot %} selected {% endif %}>{{time}}</option>
-                {% endfor %}
+            <select name="timeSlot" class="form-control timeSlot" disabled >
+                
             </select>
         </div>
         {%if error.timeSlot %}
@@ -78,7 +75,7 @@
         {% if data.status %}
         {% set statusOption = ['pending', 'approved'] %}
         <div class="form-group">Status
-            <select name="status" class="form-control">
+            <select name="status" class="form-control" >
                 {% for statuss in statusOption %}
                 <option value="{{statuss}}" {% if statuss == data.status %} selected {% endif %}>{{statuss}}</option>
                 {% endfor %}
@@ -94,5 +91,35 @@
     </form>
 	
 </div>
+<script>
+    
+        $(document).ready(function () {
+          
+         var todaysDate = new Date();
+          var year = todaysDate.getFullYear(); 			
+          var month = ("0" + (todaysDate.getMonth() + 1)).slice(-2);
+          var day = ("0" + (todaysDate.getDate() + 1)).slice(-2);			
+      
+             var minDate = (year +"-"+ month +"-"+ day); 
+          $('.date').attr('min',minDate);
+       
+        });
+    
+    $(document).on('change','.date',function(){
+        $('.timeSlot').attr('disabled',false);
+        var request = $.ajax({
+            url: 'http://localhost/vehicleregistration/public/TimeSlot/',
+            method: 'POST',
+            data : {date : $('.date').val()},
+            dataType: 'json'
+        });
+            request.success(function(result) {
+                $.each(result, function(k, v) {
+                    $('.timeSlot').append('<option>'+this.timeSlot+'</option>');
+                });
+            });  
+    
+    });
 
+</script>
 {% endblock %}
