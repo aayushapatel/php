@@ -14,12 +14,41 @@
     </tr>
     {% for grid in content %}
     <tr>
+    
         {% for key,record in grid %}
-                <td>{{record}}</td>
+            {% if key == 'status' %}
+                <td><a href="#" class="updateStatus" id="{{grid.serviceId}}-{{record}}">{{record}}</a></td>
+            {% else %}
+                    <td>{{record}}</td>
+            {% endif %}
         {% endfor %}
         <td><a href="{{URL}}Admin/home/edit/{{grid.serviceId}}">Edit </a></td>
-        <td><a href="{{URL}}Admin/home/delete/{{grid.serviceId}}">Delete </a></td>
+        <td><a href="#" class="delete" id="{{grid.serviceId}}">Delete </a></td>
     </tr>
     {% endfor %}
 </table>
+<script>
+    $(document).on('click','.delete',function(){
+        var request = $.ajax({
+            url: 'http://localhost/vehicleregistration/public/Admin/Home/Delete',
+            method: 'POST',
+            data : {id : this.id}
+        });
+            request.success(function() {
+              window.location.href="http://localhost/vehicleregistration/public/Admin/Home/";
+            });  
+    });
+    $(document).on('click','.updateStatus',function(){
+        var request = $.ajax({ 
+            url: 'http://localhost/vehicleregistration/public/Admin/Home/UpdateStatus',
+            method: 'POST',
+            data : {id : this.id}
+        });
+        request.success(function() {
+            window.location.href="http://localhost/vehicleregistration/public/Admin/Home/";
+        }); 
+            
+    });
+</script>
+
 {% endblock %}

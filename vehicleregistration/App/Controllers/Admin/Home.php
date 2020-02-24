@@ -67,9 +67,15 @@ class Home extends \Core\BaseController{
         $this->error = $error;
         return (empty($error))?true:false;
     }
-    public function deleteAction() {
-        BaseQuery::deleteData('service_registrations','serviceId='.$this->params['id']);
-       header('Location:'.config::URL.'admin/Home/index');
+    public function delete() {
+        BaseQuery::deleteData('service_registrations','serviceId='.$_POST['id']);
+        //header('Location:'.config::URL.'admin/Home/index');
+    }
+    public function updateStatus() {
+        $id = explode("-",$_POST['id']);
+        $status = ($id[1]=='pending')?'approved':'pending';
+        BaseQuery::updateData('service_registrations',"status='".$status."'",'serviceId='.$id[0]);
+
     }
     
     protected function before() {

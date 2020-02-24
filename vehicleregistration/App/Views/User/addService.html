@@ -48,7 +48,7 @@
         
 		<div class="form-group">TimeSlot
             <select name="timeSlot" class="form-control timeSlot" disabled >
-                
+                <option value="{{data.timeSlot}}">{{data.timeSlot}}</option>
             </select>
         </div>
         {%if error.timeSlot %}
@@ -86,6 +86,7 @@
         
        
 		<div class="form-group">
+            <button type="reset"  class="btn btn-primary btn-lg">Reset</button>
             <button type="submit" class="btn btn-primary btn-lg" name="addService">{{action}} Service</button>
         </div>
     </form>
@@ -114,6 +115,7 @@
             dataType: 'json'
         });
             request.success(function(result) {
+                $('.timeSlot').empty();
                 $.each(result, function(k, v) {
                     $('.timeSlot').append('<option>'+this.timeSlot+'</option>');
                 });
